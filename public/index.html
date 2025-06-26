@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EV2025 | Monitoreo Inteligente de Vibraciones</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fft.js@0.3.0/dist/fft.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-brand">
+            <h1>EV2025<span>Vibraciones</span></h1>
+        </div>
+        <ul class="navbar-nav" id="navbarNav">
+            <li>
+                <a href="#dashboard" class="nav-link active" data-target="dashboard-section">
+                    <i class="fas fa-chart-line"></i> Monitoreo
+                </a>
+            </li>
+            <li>
+                <a href="#description" class="nav-link" data-target="description-section">
+                    <i class="fas fa-info-circle"></i> Descripción
+                </a>
+            </li>
+            <li>
+                <a href="#manual" class="nav-link" data-target="manual-section">
+                    <i class="fas fa-book"></i> Manual
+                </a>
+            </li>
+            <li>
+                <a href="#about" class="nav-link" data-target="about-section">
+                    <i class="fas fa-users"></i> Acerca de
+                </a>
+            </li>
+        </ul>
+        <button class="navbar-toggler" aria-label="Toggle navigation" id="navbarToggler">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <main class="content">
+        <section id="dashboard-section" class="page-section active">
+            <div class="card page-content-card">
+                <div class="dashboard-header">
+                    <h2>Análisis de Vibraciones</h2>
+                    <button id="fetch-data-btn" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Buscar Lote de Datos
+                    </button>
+                </div>
+
+                <div class="status-message" id="status-message">
+                    <i class="fas fa-spinner fa-spin"></i> Esperando búsqueda de datos...
+                </div>
+
+                <div class="data-display-area">
+                    <div class="card chart-container">
+                        <h3>Gráfica de Oscilación (Dominio del Tiempo)</h3>
+                        <canvas id="timeDomainChart"></canvas>
+                    </div>
+                    <div class="card metrics-panel">
+                        <h3>Métricas Clave (Eje Y)</h3>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-ruler-vertical"></i></div>
+                            <div class="metric-info">
+                                <h4>Aceleración Instantánea</h4>
+                                <p id="accY-instant" class="metric-value">--</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-arrows-alt-v"></i></div>
+                            <div class="metric-info">
+                                <h4>Amplitud Pico-Pico</h4>
+                                <p id="amplitudeY-pp" class="metric-value">--</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                            <div class="metric-info">
+                                <h4>Frecuencia Dominante</h4>
+                                <p id="frequencyY-dom" class="metric-value">--</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-hourglass-half"></i></div>
+                            <div class="metric-info">
+                                <h4>Período</h4>
+                                <p id="periodY" class="metric-value">--</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-controls">
+                    <button id="clear-page-btn" class="btn btn-secondary">
+                        <i class="fas fa-eraser"></i> Limpiar Pantalla
+                    </button>
+                    <button id="export-pdf-btn" class="btn btn-accent">
+                        <i class="fas fa-file-pdf"></i> Exportar a PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="description-section" class="page-section">
+            <div class="card page-content-card">
+                <h2>Descripción del Proyecto</h2>
+                <p>
+                Este proyecto surge en el marco de la <strong>Escuela de Vacaciones Junio 2025</strong> de la
+                <strong>Universidad de San Carlos de Guatemala (CUNOC)</strong>, donde un equipo de estudiantes
+                desarrolló una solución práctica de bajo costo para el <em>monitoreo inteligente de vibraciones</em>.
+                El objetivo principal es proveer una herramienta que, mediante el análisis de oscilaciones en   
+                maquinaria, permita anticipar fallas y optimizar el mantenimiento predictivo.
+                </p>
+
+                <p>
+                Es importante destacar que, debido a la naturaleza de los sensores de bajo costo y su aplicación en un entorno no industrial, el sensor ADXL345 utilizado en este proyecto presenta una variación inherente en sus lecturas. Esto significa que no puede establecer un punto cero perfectamente definido, lo cual es una consideración clave al interpretar los datos.
+                </p>
+
+                <h3>Contexto y Motivación</h3>
+                <p>
+                En la industria y en sistemas mecánicos complejos, las vibraciones anómalas suelen ser el
+                primer indicio de desgaste o desalineación. Detectarlas a tiempo puede ahorrar costes considerables
+                en reparaciones. Sin embargo, muchos equipos carecen de sistemas de adquisición de datos accesibles.
+                Por ello diseñamos una plataforma completa que abarca desde la señal cruda hasta un informe en PDF.
+                </p>
+
+                <h3>Tecnologías Empleadas</h3>
+                <ul>
+                <li><i class="fas fa-microchip"></i> <strong>ESP32:</strong> Microcontrolador con Wi-Fi integrado, encargado de la adquisición de datos del acelerómetro.</li>
+                <li><i class="fas fa-sensor"></i> <strong>ADXL345:</strong> Acelerómetro de ±16 g en 3 ejes, el sensor principal para detectar las vibraciones.</li>
+                <li><i class="fas fa-cloud"></i> <strong>Firebase Realtime Database:</strong> Base de datos en tiempo real utilizada para almacenar y sincronizar los datos de vibración recolectados por el ESP32.</li>
+                <li><i class="fas fa-chart-line"></i> <strong>Chart.js:</strong> Librería JavaScript para la creación de gráficas interactivas en la interfaz web, permitiendo la visualización del desplazamiento en el dominio del tiempo.</li>
+                <li><i class="fas fa-file-pdf"></i> <strong>jsPDF + html2canvas:</strong> Librerías JavaScript empleadas para generar y exportar informes de vibración en formato PDF, incluyendo las gráficas y métricas relevantes.</li>
+                </ul>
+
+                <h3>Arquitectura de Software</h3>
+                <div class="architecture-steps-grid">
+                    <div class="architecture-step-card">
+                        <h4>1. Adquisición de Datos</h4>
+                        <p>El ESP32 lee continuamente los datos del acelerómetro ADXL345 a intervalos fijos. Estos datos se almacenan temporalmente en la memoria del microcontrolador.</p>
+                    </div>
+                    <div class="architecture-step-card">
+                        <h4>2. Procesamiento de Datos</h4>
+                        <p>Al detener la captura de datos, el ESP32 procesa las lecturas de aceleración para calcular el desplazamiento de la vibración.</p>
+                    </div>
+                    <div class="architecture-step-card">
+                        <h4>3. Transmisión de Datos</h4>
+                        <p>Una vez procesados, el lote de datos se convierte a formato JSON y se sube automáticamente a la ruta <code>/lecturas</code> en la Realtime Database de Firebase, reemplazando el lote previo.</p>
+                    </div>
+                    <div class="architecture-step-card">
+                        <h4>4. Interfaz Web</h4>
+                        <p>La aplicación web es una Single Page Application (SPA) desarrollada con HTML para la estructura, CSS para el diseño visual y JavaScript para la interactividad. Esta interfaz solicita el último lote de datos de Firebase, grafica el desplazamiento en función del tiempo y muestra métricas clave de vibración.</p>
+                    </div>
+                    <div class="architecture-step-card">
+                        <h4>5. Generación de Reportes</h4>
+                        <p>Con un simple clic, la interfaz web genera un informe en formato PDF que incluye la gráfica de vibración, las métricas calculadas y la fecha/hora de generación del reporte.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3>Diagrama de Arquitectura General</h3>
+                <div class="diagram-container">
+                    <img src="assets/arquitectura-diagrama.png" alt="Diagrama de Arquitectura" class="diagram-img">
+                    <p class="diagram-caption">Representación de la arquitectura de software y hardware del sistema.</p>
+                </div>
+
+                <hr>
+
+                <h3>Diagrama del Circuito Electrónico</h3>
+                <div class="diagram-container">
+                    <img src="assets/circuito-diagrama.png" alt="Diagrama del Circuito" class="diagram-img">
+                    <p class="diagram-caption">Esquema de las conexiones de los componentes electrónicos.</p>
+                </div>
+
+                <hr>
+
+                <h3>Componentes del Circuito</h3>
+                <div class="components-list">
+                    <div class="component-item">
+                        <h4><i class="fas fa-microchip"></i> ESP32</h4>
+                        <p>El corazón del sistema. Un microcontrolador potente con conectividad Wi-Fi y Bluetooth. Es el encargado de leer los datos del acelerómetro, procesarlos y enviarlos a la base de datos de Firebase.</p>
+                    </div>
+                    <div class="component-item">
+                        <h4><i class="fas fa-sensor"></i> Acelerómetro ADXL345</h4>
+                        <p>Sensor digital de aceleración de 3 ejes con alta resolución (13-bit) y rangos de medición seleccionables de hasta ±16g. Ideal para la detección de vibraciones debido a su precisión y bajo consumo de energía.</p>
+                    </div>
+                    <div class="component-item">
+                        <h4><i class="fas fa-lightbulb"></i> LEDs Indicadores</h4>
+                        <ul>
+                            <li><strong>LED Verde:</strong> Indica que el ESP32 está encendido y el sistema está listo.</li>
+                            <li><strong>LED Rojo:</strong> Indica que el sistema está en modo de espera y no está recolectando datos. Se apaga cuando se inicia la captura.</li>
+                            <li><strong>LED Azul:</strong> Indica que se está realizando la captura de datos y la transmisión a la base de datos. Se enciende durante la fase de adquisición y se apaga al finalizar la transmisión.</li>
+                        </ul>
+                    </div>
+                    <div class="component-item">
+                        <h4><i class="fas fa-toggle-on"></i> Interruptores (Switches)</h4>
+                        <ul>
+                            <li><strong>Interruptor de Encendido/Apagado (ON/OFF):</strong> Controla el suministro de energía principal al circuito del ESP32 y sus componentes.</li>
+                            <li><strong>Interruptor de Captura de Datos:</strong> Activa y desactiva la fase de adquisición de datos del acelerómetro.</li>
+                        </ul>
+                    </div>
+                    <div class="component-item">
+                        <h4><i class="fas fa-battery-full"></i> Fuente de Alimentación</h4>
+                        <p>Puede ser una batería externa (por ejemplo, Power Bank de 5V) o un adaptador de corriente que proporcione 5V al circuito del ESP32.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3>Recursos Necesarios</h3>
+                <h4><i class="fas fa-database"></i> Base de Datos Firebase Realtime Database</h4>
+                <p>Firebase Realtime Database es una base de datos alojada en la nube que permite almacenar y sincronizar datos en tiempo real entre tus usuarios. En este proyecto, se utiliza para recibir y almacenar los lotes de datos de vibración enviados por el ESP32.</p>
+                
+                <h5>Pasos para Crear la Base de Datos:</h5>
+                <ol class="setup-steps">
+                    <li><i class="fas fa-user-circle"></i> Crea una cuenta de Google e inicia sesión en la <a href="https://console.firebase.google.com/" target="_blank">Consola de Firebase</a>.</li>
+                    <li><i class="fas fa-plus-circle"></i> Haz clic en "Agregar proyecto" y sigue los pasos para crear un nuevo proyecto de Firebase.</li>
+                    <li><i class="fas fa-database"></i> En el menú lateral de tu proyecto, navega a "Realtime Database" y haz clic en "Crear base de datos". Selecciona una ubicación cercana a tus usuarios.</li>
+                    <li><i class="fas fa-shield-alt"></i> Ve a la pestaña "Reglas" (Rules) de tu Realtime Database. Para propósitos de desarrollo (y para permitir que el ESP32 y la web escriban/lean), configura las reglas de la siguiente manera:
+<pre><code class="code-block">{
+  "rules": {
+    ".read": "true",
+    ".write": "true"
+  }
+}</code></pre>
+                        <p class="note"><i class="fas fa-exclamation-triangle"></i> <strong>ADVERTENCIA:</strong> Estas reglas son para desarrollo. Para una aplicación en producción, deberías implementar reglas de seguridad más estrictas.</p>
+                    </li>
+                    <li><i class="fas fa-cog"></i> En la consola de Firebase, ve a "Configuración del proyecto" (Project settings) > "Cuentas de servicio" (Service accounts) > "Realtime Database secrets". Copia el **Secret de la base de datos (Database Secret)**; lo necesitarás para configurar el ESP32.</li>
+                    <li><i class="fas fa-code"></i> En tu código JavaScript para la web, en el archivo `script.js`, actualiza la configuración de Firebase con tus propias credenciales (apiKey, databaseURL, projectId, etc.).</li>
+                </ol>
+
+                <h4><i class="fas fa-code"></i> Librerías de Arduino Necesarias</h4>
+                <p>Para la programación del ESP32 con el IDE de Arduino, necesitarás instalar las siguientes librerías desde el **Administrador de Librerías (Library Manager)**:</p>
+                <ul class="libraries-list">
+                    <li><strong><code>Firebase-ESP32</code>:</strong> Permite al ESP32 interactuar con la Realtime Database de Firebase.</li>
+                    <li><strong><code>Adafruit Unified Sensor</code>:</strong> Librería base requerida por muchos sensores de Adafruit.</li>
+                    <li><strong><code>Adafruit ADXL345</code>:</strong> Driver específico para el acelerómetro ADXL345.</li>
+                    <li><strong><code>WiFi</code>:</strong> (Generalmente viene preinstalada con el soporte para ESP32 en Arduino IDE) Para la conectividad Wi-Fi.</li>
+                </ul>
+                <p class="note"><i class="fas fa-info-circle"></i> Asegúrate de tener instalado el soporte para placas ESP32 en tu Arduino IDE a través del Gestor de Tarjetas (Boards Manager).</p>
+
+
+                <h3>Datos Registrados</h3>
+                <p>Los datos capturados y procesados incluyen:</p>
+                <ul>
+                <li><strong>tiempo_ms:</strong> Milisegundos transcurridos desde el inicio de la captura, proporcionando un eje temporal para las vibraciones.</li>
+                <li><strong>amplitud:</strong> La aceleración medida en 'g' (fuerzas de gravedad), convertida a metros por segundo al cuadrado (m/s²) para un análisis estándar.</li>
+                <li><strong>desplazamiento:</strong> El recorrido o movimiento de la vibración en milímetros (mm), integrado a partir de los datos de aceleración.</li>
+                <li><strong>frecuencia dominante:</strong> La frecuencia más prominente de la vibración, estimada mediante el análisis de cruces por cero en la señal.</li>
+                <li><strong>período:</strong> La duración de un ciclo completo de la vibración en segundos (s), calculado como el inverso de la frecuencia dominante.</li>
+                </ul>
+                <p>Para acceder al código fuente del proyecto o contactar al desarrollador, por favor, diríjase a la sección "Acerca de Nosotros" en el menú de navegación.</p>
+            </div>
+        </section>
+
+        <section id="manual-section" class="page-section">
+            <div class="card page-content-card">
+                <h2>Manual de Uso</h2>
+
+                <div class="project-info">
+                    <h3><i class="fas fa-tools"></i> Recursos del Proyecto</h3>
+                    <p>Aquí encontrarás los recursos esenciales para la configuración y desarrollo del proyecto.</p>
+                    <div class="resource-links">
+                        <a href="https://github.com/tu-usuario/tu-repo" target="_blank" class="resource-link github-link">
+                            <i class="fab fa-github"></i> Repositorio en GitHub
+                        </a>
+                        <a href="https://tu-red-social.com/tu-perfil-linkedin" target="_blank" class="resource-link social-link linkedin-btn">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://twitter.com/tu-usuario-twitter" target="_blank" class="resource-link social-link twitter-btn">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="mailto:tu-correo@example.com" class="resource-link social-link email-btn">
+                            <i class="fas fa-envelope"></i> Contacto
+                        </a>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="manual-steps-grid">
+                    <div class="manual-step-card">
+                        <i class="fas fa-power-off manual-icon"></i>
+                        <h3>1. Encendido del Dispositivo</h3>
+                        <p>Conecte la fuente de alimentación al dispositivo. Active el interruptor principal (ON/OFF). El LED verde se encenderá indicando que el dispositivo está listo, y el LED rojo indicará que no se están tomando datos.</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-wifi manual-icon"></i>
+                        <h3>2. Conexión a la Red Wi-Fi</h3>
+                        <p>El dispositivo ESP32 está precargado con una red Wi-Fi. Conéctese a la red Wi-Fi y espere a que todos los LEDs estén parpadeando, esto indicará que se conectó a la red Wi-Fi.</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-globe manual-icon"></i>
+                        <h3>3. Acceso a la Interfaz Web</h3>
+                        <p>Abra su navegador web y acceda al link de la aplicación (la aplicación web es responsive, lo que significa que se adaptará a computadoras, teléfonos y tablets).</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-play-circle manual-icon"></i>
+                        <h3>4. Inicio de la Toma de Datos</h3>
+                        <p>Coloque el sensor ADXL345 firmemente sobre la superficie de la máquina que desea analizar. Active el segundo interruptor en el dispositivo para iniciar la toma de datos. El LED rojo se apagará y el LED verde (que ya estaba encendido) permanecerá encendido, además se encenderá el LED azul, indicando que los datos se están recolectando y preparando para el envío.</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-stop-circle manual-icon"></i>
+                        <h3>5. Finalización de la Toma de Datos</h3>
+                        <p>Cuando considere que ha pasado el tiempo necesario (por ejemplo, 10 segundos), desactive el segundo interruptor. En este momento, el ESP32 enviará el lote de datos recolectados a la base de datos en tiempo real y cuando termine de enviar los datos, el LED azul se apagará y el LED rojo se encenderá.</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-chart-bar manual-icon"></i>
+                        <h3>6. Visualización y Análisis</h3>
+                        <p>En la interfaz web, presione el botón **"Buscar Lote de Datos"**. La página buscará el lote más reciente en la base de datos. Si lo encuentra, la gráfica de oscilación se mostrará y se calcularán y exhibirán las métricas clave como amplitud, frecuencia y período.</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-sync-alt manual-icon"></i>
+                        <h3>7. Limpiar y Reiniciar</h3>
+                        <p>Utilice el botón **"Limpiar Pantalla"** para borrar la gráfica y los datos actuales de la pantalla y prepararla para una nueva búsqueda.</p>
+                    </div>
+                    <div class="manual-step-card">
+                        <i class="fas fa-download manual-icon"></i>
+                        <h3>8. Exportar Informe</h3>
+                        <p>Presione el botón **"Exportar a PDF"** para generar un informe en formato PDF con la gráfica y las métricas mostradas.</p>
+                    </div>
+                </div>
+                <p class="note"><i class="fas fa-exclamation-triangle"></i> <strong>Nota:</strong> Debido a las limitaciones del hardware, se recomienda tomar en cuenta que el sensor no es un sensor profesional para la toma de datos debido al alto coste de los sensores profesionales. Además, la red Wi-Fi está precargada; para modificarla, visite el código en GitHub del desarrollador y cambie los datos de SSID, CONTRASEÑA, API KEY.</p>
+            </div>
+        </section>
+
+        <section id="about-section" class="page-section">
+            <div class="card page-content-card">
+                <h2>Acerca de Nosotros</h2>
+                <p>Este proyecto fue desarrollado como parte del curso de <strong>VIBRACIONES</strong> en <strong>UNIVERSIDAD DE SAN CARLOS DE GUATEMALA CUNOC</strong>, con el objetivo de crear una herramienta práctica y accesible para el monitoreo de vibraciones, combinando hardware de bajo costo con una interfaz de usuario moderna y funcional.</p>
+                
+                <p>El curso de <strong>Vibraciones</strong> en la Universidad de San Carlos de Guatemala (CUNOC) se enfoca en el estudio de los fenómenos oscilatorios en sistemas mecánicos, abordando desde los fundamentos teóricos hasta sus aplicaciones prácticas en ingeniería. A través de este proyecto, aplicamos los conocimientos adquiridos sobre análisis de vibraciones y diseño de sistemas de monitoreo para desarrollar una solución innovadora y de bajo costo.</p>
+
+                <div class="group-photo-container">
+                    <img src="https://placehold.co/600x300/E0E0E0/6C757D?text=Foto+Grupal+Aqui" alt="Foto del equipo de desarrollo" class="group-photo">
+                    <p class="photo-caption">Nuestro equipo trabajando en el proyecto de monitoreo de vibraciones.</p>
+                </div>
+
+                <h3>Grupo de Desarrollo de Software y Electrónica:</h3>
+                <div class="team-members">
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Wilmer Lorenzo Choxom Chamorro.</strong> Programador de la interfaz y conexiones de DB y ESP32.</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Atawalpa Itzamná Ixcayau Noj.</strong> Electrónica del proyecto.</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Angel Roberto Yac Chan.</strong> Electrónica del proyecto.</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p>Miembro Adicional (Nombre).</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3><i class="fas fa-images"></i> Álbum de Fotos del Proyecto</h3>
+                <p>Una colección de imágenes que muestran el progreso y los componentes clave de nuestro proyecto.</p>
+                <div class="photo-album-grid">
+                    <div class="photo-item card">
+                        <img src="https://placehold.co/400x250/B0C4DE/4682B4?text=Foto+1" alt="Foto del proyecto 1" class="album-img">
+                        <p class="album-caption">Prototipo inicial del circuito.</p>
+                    </div>
+                    <div class="photo-item card">
+                        <img src="https://placehold.co/400x250/ADD8E6/4169E1?text=Foto+2" alt="Foto del proyecto 2" class="album-img">
+                        <p class="album-caption">Detalle del sensor ADXL345.</p>
+                    </div>
+                    <div class="photo-item card">
+                        <img src="https://placehold.co/400x250/87CEEB/000080?text=Foto+3" alt="Foto del proyecto 3" class="album-img">
+                        <p class="album-caption">Pruebas de vibración en el laboratorio.</p>
+                    </div>
+                    <div class="photo-item card">
+                        <img src="https://placehold.co/400x250/6A5ACD/483D8B?text=Foto+4" alt="Foto del proyecto 4" class="album-img">
+                        <p class="album-caption">Interfaz web en funcionamiento.</p>
+                    </div>
+                    <div class="photo-item card">
+                        <img src="https://placehold.co/400x250/483D8B/6A5ACD?text=Foto+5" alt="Foto del proyecto 5" class="album-img">
+                        <p class="album-caption">Ensamblaje final del dispositivo.</p>
+                    </div>
+                    <div class="photo-item card">
+                        <img src="https://placehold.co/400x250/4169E1/ADD8E6?text=Foto+6" alt="Foto del proyecto 6" class="album-img">
+                        <p class="album-caption">Equipo revisando los resultados.</p>
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h3>Recursos del Proyecto</h3>
+                    <div class="resource-links">
+                        <a href="https://github.com/tu-usuario/tu-repo" target="_blank" class="resource-link github-link">
+                            <i class="fab fa-github"></i> Repositorio en GitHub
+                        </a>
+                        <a href="https://tu-red-social.com/tu-perfil-linkedin" target="_blank" class="resource-link social-link linkedin-btn">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://twitter.com/tu-usuario-twitter" target="_blank" class="resource-link social-link twitter-btn">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="mailto:tu-correo@example.com" class="resource-link social-link email-btn">
+                            <i class="fas fa-envelope"></i> Contacto
+                        </a>
+                    </div>
+                </div>
+
+                <p class="project-date">Fecha de Desarrollo: Junio 2025</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; Proyecto escuela de vacaciones 2025 CUNOC. Desarrollado por Wilmer Choxom.</p>
+    </footer>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

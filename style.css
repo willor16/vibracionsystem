@@ -1,0 +1,540 @@
+/* Variables CSS para facilitar la gestión de colores y sombras */
+:root {
+    --primary-color: #007bff; /* Azul vibrante, ligeramente más saturado */
+    --primary-color-dark: #0056b3; /* Azul más oscuro para hover */
+    --accent-color: #28a745; /* Verde para acciones positivas como Exportar */
+    --accent-color-dark: #218838;
+    --background-light: #f0f2f5; /* Gris claro de fondo, limpio */
+    --card-background: #ffffff; /* Blanco puro para tarjetas */
+    --text-color: #333; /* Texto principal */
+    --light-text-color: #6c757d; /* Texto secundario/descripciones */
+    --border-color: #e0e0e0; /* Bordes suaves */
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada pero suave */
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra para interacción */
+    --border-radius-large: 12px;
+    --border-radius-medium: 8px;
+    --transition-speed: 0.3s ease-in-out;
+}
+
+/* Base y Tipografía */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: 16px; /* Base font size */
+}
+
+/* Contenedor principal para centrar el contenido */
+.content {
+    flex-grow: 1;
+    padding: 30px;
+    max-width: 1400px; /* Un poco más amplio para el diseño de dashboard */
+    margin: 20px auto;
+    background-color: transparent; /* El fondo es el del body */
+}
+
+/* Estilo de Tarjetas Generales */
+.card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-subtle);
+    padding: 25px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Navbar (Mejorado al Estilo Instagram/Material Design) */
+.navbar {
+    background: linear-gradient(to right, #ffffff, #f9f9f9); /* Gradiente sutil */
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-subtle);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand h1 {
+    font-size: 2em; /* Más prominente */
+    font-weight: 700;
+    color: var(--primary-color-dark); /* Color más sólido para el título principal */
+    margin: 0;
+    letter-spacing: -0.5px; /* Un pequeño ajuste para estética */
+}
+
+.navbar-brand span {
+    font-size: 0.7em;
+    font-weight: 400;
+    color: var(--light-text-color);
+    margin-left: 5px;
+    opacity: 0.8; /* Suavizar el sufijo */
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 35px; /* Más espaciado entre pestañas */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--light-text-color);
+    font-weight: 600;
+    font-size: 1.05em;
+    padding: 8px 0; /* Más padding para clic */
+    position: relative;
+    transition: color var(--transition-speed), transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+}
+
+.nav-link i {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px; /* Línea más gruesa */
+    background-color: var(--primary-color);
+    bottom: -8px; /* Más abajo de la línea de texto */
+    left: 0;
+    border-radius: 2px; /* Bordes redondeados para la línea */
+    transition: width var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--primary-color-dark);
+    transform: translateY(-2px); /* Efecto de levantamiento sutil */
+}
+
+.nav-link:hover i {
+    color: var(--primary-color-dark);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: 700; /* Texto más grueso para activo */
+}
+
+.nav-link.active i {
+    color: var(--primary-color);
+}
+
+/* Toggler para móviles */
+.navbar-toggler {
+    display: none; /* Oculto por defecto en desktop */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--light-text-color);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.navbar-toggler:hover {
+    color: var(--primary-color);
+}
+
+/* Secciones de Página */
+.page-section {
+    display: none; /* Oculta todas por defecto */
+    margin-bottom: 30px; /* Espaciado uniforme */
+}
+
+.page-section.active {
+    display: block; /* Muestra la sección activa */
+}
+
+.page-content-card {
+    padding: 35px; /* Más padding */
+}
+
+.page-content-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 2.2em; /* Títulos de sección más grandes */
+    text-align: center;
+    font-weight: 700;
+}
+
+.page-content-card h3 {
+    color: var(--text-color);
+    margin-top: 30px; /* Más espacio arriba */
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+.page-content-card p,
+.page-content-card ul,
+.page-content-card ol {
+    color: var(--light-text-color);
+    margin-bottom: 15px;
+    font-size: 1em;
+    line-height: 1.7; /* Mejor legibilidad */
+}
+
+.page-content-card ul,
+.page-content-card ol {
+    list-style: none; /* Eliminamos el estilo de lista por defecto para personalizar */
+    padding-left: 0;
+}
+
+.page-content-card ul li,
+.page-content-card ol li {
+    margin-bottom: 12px;
+    display: flex; /* Para alinear íconos con texto */
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.page-content-card ul li i,
+.page-content-card ol li i {
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-top: 3px; /* Ajuste visual para el icono */
+}
+
+.page-content-card ol li strong {
+    color: var(--text-color); /* Resaltar el paso */
+}
+
+.page-content-card .note {
+    background-color: #fff3cd; /* Color suave para notas/alertas */
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    border-radius: var(--border-radius-medium);
+    margin-top: 30px;
+    color: #856404;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.page-content-card .note i {
+    color: #ffc107;
+    font-size: 1.2em;
+    margin-top: 2px;
+}
+
+
+/* Dashboard de Datos Específico */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-header h2 {
+    font-size: 2.5em; /* Título principal del dashboard */
+    color: var(--primary-color);
+    margin: 0;
+    font-weight: 700;
+}
+
+.status-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--light-text-color);
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #e6f7ff;
+    border-radius: var(--border-radius-medium);
+    border: 1px solid #b3e0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.status-message i {
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+
+.data-display-area {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px; /* Más espacio */
+}
+
+.chart-container {
+    flex: 2;
+    min-width: 500px; /* Aumentado para mejor visualización en desktop */
+    padding: 30px;
+}
+
+.chart-container h3 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.metrics-panel {
+    flex: 1;
+    min-width: 320px; /* Un poco más ancho para las tarjetas de métricas */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre las tarjetas de métricas */
+}
+
+.metrics-panel h3 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.metric-card {
+    background-color: var(--background-light); /* Fondo más claro para las tarjetas de métricas */
+    border-radius: var(--border-radius-medium);
+    padding: 18px 25px; /* Más padding */
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: none; /* Sin sombra interna */
+    transition: background-color var(--transition-speed);
+}
+
+.metric-card:hover {
+    background-color: #e9eff5; /* Ligero cambio de color al pasar el ratón */
+}
+
+.metric-icon {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    min-width: 40px;
+    text-align: center;
+}
+
+.metric-info {
+    flex-grow: 1;
+}
+
+.metric-card h4 {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.metric-value {
+    font-size: 2.2em; /* Valores más grandes */
+    font-weight: 700;
+    color: var(--primary-color-dark);
+    line-height: 1;
+}
+
+.dashboard-controls {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Más espacio entre botones */
+}
+
+/* Estilo de Botones Mejorado */
+.btn {
+    padding: 14px 30px; /* Más padding para hacerlos más grandes */
+    border-radius: var(--border-radius-medium);
+    border: none;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+    box-shadow: var(--shadow-subtle);
+}
+
+.btn i { /* Iconos de Font Awesome en botones */
+    font-size: 1.2em;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+    background-color: #e0e6eb; /* Gris suave */
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #d0d6db;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-color-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--card-background);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+
+/* Responsividad */
+@media (max-width: 1200px) {
+    .content {
+        padding: 20px;
+    }
+    .navbar-nav {
+        gap: 20px;
+    }
+    .nav-link {
+        font-size: 0.95em;
+        gap: 6px;
+    }
+    .chart-container {
+        min-width: 400px;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        padding: 15px 25px;
+    }
+    .navbar-nav {
+        display: none; /* Oculta el navbar normal en tabletas y móviles */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--card-background);
+        position: absolute;
+        top: 70px; /* Debajo del navbar */
+        left: 0;
+        box-shadow: var(--shadow-medium);
+        border-top: 1px solid var(--border-color);
+        padding: 15px 0;
+    }
+    .navbar-nav.active {
+        display: flex; /* Muestra cuando está activo */
+    }
+    .nav-link {
+        padding: 12px 25px;
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+    .navbar-toggler {
+        display: block; /* Muestra el botón de menú en móviles */
+    }
+
+    .data-display-area {
+        flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
+        gap: 20px;
+    }
+    .chart-container,
+    .metrics-panel {
+        min-width: unset; /* Anula el min-width */
+        width: 100%;
+    }
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .dashboard-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .btn {
+        width: 100%; /* Botones de ancho completo */
+        justify-content: center;
+    }
+    .page-content-card h2 {
+        font-size: 1.8em;
+    }
+    .page-content-card h3 {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        font-size: 14px;
+    }
+    .navbar {
+        padding: 10px 15px;
+    }
+    .navbar-brand h1 {
+        font-size: 1.5em;
+    }
+    .content {
+        padding: 15px;
+    }
+    .card {
+        padding: 20px;
+    }
+    .dashboard-header h2 {
+        font-size: 2em;
+    }
+    .status-message {
+        font-size: 1em;
+        padding: 15px;
+    }
+    .metric-value {
+        font-size: 1.8em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+}

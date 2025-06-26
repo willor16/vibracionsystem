@@ -1,0 +1,1142 @@
+/* Variables CSS para facilitar la gestión de colores y sombras */
+:root {
+    /* Paleta de colores para el Modo Claro (revertido) */
+    --primary-color: #007bff; /* Azul vibrante */
+    --primary-color-dark: #0056b3; /* Azul más oscuro para hover */
+    --accent-color: #28a745; /* Verde para acciones positivas */
+    --accent-color-dark: #218838;
+    --background-light: #f0f2f5; /* Gris claro de fondo */
+    --card-background: #ffffff; /* Blanco puro para tarjetas */
+    --text-color: #333; /* Texto principal */
+    --light-text-color: #6c757d; /* Texto secundario/descripciones */
+    --border-color: #e0e0e0; /* Bordes suaves */
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra para interacción */
+    --border-radius-large: 12px;
+    --border-radius-medium: 8px;
+    --transition-speed: 0.3s ease-in-out;
+
+    /* Variables de tamaño de fuente y espaciado para consistencia */
+    --font-family: 'Inter', sans-serif;
+    --font-size-base: 16px;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5em;
+    --font-size-2xl: 2em;
+    --font-size-3xl: 2.5em;
+    
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --spacing-xl: 40px;
+}
+
+/* Base y Tipografía */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-light);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: var(--font-size-base);
+    overflow-x: hidden; /* Previene el scroll horizontal en todo el body */
+}
+
+/* Contenedor principal para centrar el contenido */
+.content {
+    flex-grow: 1;
+    padding: 30px;
+    max-width: 1400px;
+    margin: 20px auto;
+    background-color: transparent;
+    width: 100%; /* Asegura que ocupe el 100% del ancho disponible */
+}
+
+/* Estilo de Tarjetas Generales */
+.card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-subtle);
+    padding: 25px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(to right, #ffffff, #f9f9f9); /* Gradiente sutil para modo claro */
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-subtle);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand h1 {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--primary-color-dark);
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.navbar-brand span {
+    font-size: 0.7em;
+    font-weight: 400;
+    color: var(--light-text-color);
+    margin-left: 5px;
+    opacity: 0.8;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--light-text-color);
+    font-weight: 600;
+    font-size: 1.05em;
+    padding: 8px 0;
+    position: relative;
+    transition: color var(--transition-speed), transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto del menú */
+}
+
+.nav-link i {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-color);
+    bottom: -8px;
+    left: 0;
+    border-radius: 2px;
+    transition: width var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--primary-color-dark);
+    transform: translateY(-2px);
+}
+
+.nav-link:hover i {
+    color: var(--primary-color-dark);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.nav-link.active i {
+    color: var(--primary-color);
+}
+
+/* Toggler para móviles */
+.navbar-toggler {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--light-text-color);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.navbar-toggler:hover {
+    color: var(--primary-color);
+}
+
+/* Secciones de Página */
+.page-section {
+    display: none;
+    margin-bottom: 30px;
+}
+
+.page-section.active {
+    display: block;
+}
+
+.page-content-card {
+    padding: 35px;
+    width: 100%; /* Asegura que la tarjeta ocupe todo el ancho disponible */
+}
+
+.page-content-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    text-align: center;
+    font-weight: 700;
+}
+
+.page-content-card h3 {
+    color: var(--text-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+.page-content-card p,
+.page-content-card ul,
+.page-content-card ol {
+    color: var(--light-text-color);
+    margin-bottom: 15px;
+    font-size: 1em;
+    line-height: 1.7;
+}
+
+.page-content-card ul,
+.page-content-card ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+.page-content-card ul li,
+.page-content-card ol li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.page-content-card ul li i,
+.page-content-card ol li i {
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-top: 3px;
+}
+
+.page-content-card ol li strong {
+    color: var(--text-color);
+}
+
+.page-content-card .note {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    border-radius: var(--border-radius-medium);
+    margin-top: 30px;
+    color: #856404;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.page-content-card .note i {
+    color: #ffc107;
+    font-size: 1.2em;
+    margin-top: 2px;
+}
+
+
+/* Dashboard de Datos Específico */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-header h2 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin: 0;
+    font-weight: 700;
+}
+
+.status-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--light-text-color);
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #e6f7ff;
+    border-radius: var(--border-radius-medium);
+    border: 1px solid #b3e0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.status-message i {
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+
+.data-display-area {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    justify-content: center; /* Centra los elementos cuando se envuelven */
+}
+
+.chart-container {
+    flex: 2;
+    min-width: 500px; /* Mantener para desktop */
+    max-width: 100%; /* Asegura que no desborde */
+    padding: 30px;
+}
+
+.chart-container h3 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.metrics-panel {
+    flex: 1;
+    min-width: 320px; /* Mantener para desktop */
+    max-width: 100%; /* Asegura que no desborde */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.metrics-panel h3 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.metric-card {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-medium);
+    padding: 18px 25px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: none;
+    transition: background-color var(--transition-speed);
+}
+
+.metric-card:hover {
+    background-color: #e9eff5;
+}
+
+.metric-icon {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    min-width: 40px;
+    text-align: center;
+}
+
+.metric-info {
+    flex-grow: 1;
+}
+
+.metric-card h4 {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.metric-value {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--primary-color-dark);
+    line-height: 1;
+}
+
+.dashboard-controls {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Estilo de Botones Mejorado */
+.btn {
+    padding: 14px 30px;
+    border-radius: var(--border-radius-medium);
+    border: none;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+    box-shadow: var(--shadow-subtle);
+}
+
+.btn i {
+    font-size: 1.2em;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+    background-color: #e0e6eb;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #d0d6db;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-color-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+
+/* --- Arquitectura de Software (Nueva distribución y estilo) --- */
+.architecture-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Permitir que se ajuste a 1 o 2 columnas */
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.architecture-step-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-subtle);
+    padding: var(--spacing-md);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.architecture-step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.architecture-step-card h4 {
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+.architecture-step-card p {
+    color: var(--light-text-color);
+    font-size: var(--font-size-md);
+}
+
+/* Estilos para Diagramas (HTML/CSS basado) */
+.diagram-container {
+    text-align: center;
+    margin: var(--spacing-lg) auto;
+    max-width: 900px;
+    width: 100%; /* Asegura que no desborde */
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+    background-color: var(--card-background);
+    padding: var(--spacing-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.diagram-caption {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-top: var(--spacing-sm);
+    padding: 0 var(--spacing-sm);
+}
+
+/* Architecture Diagram Specific Styles */
+.architecture-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    min-height: 250px;
+    width: 100%;
+}
+
+.arch-block {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-md);
+    text-align: center;
+    min-width: 150px;
+    flex-grow: 1;
+    flex-basis: auto;
+    box-shadow: var(--shadow-subtle);
+}
+
+.arch-block h4 {
+    color: var(--primary-color-dark);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.1em;
+}
+
+.arch-block p {
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+/* Arrows for Architecture Diagram */
+.arch-arrow {
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.arch-arrow::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent var(--primary-color);
+    right: -10px;
+    top: -5px;
+}
+
+/* Circuit Diagram Specific Styles */
+.circuit-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-xl);
+    min-height: 400px;
+    width: 100%;
+}
+
+.circuit-component {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-md);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    width: 200px;
+    max-width: 100%;
+    box-shadow: var(--shadow-subtle);
+}
+
+.circuit-component i {
+    font-size: 2em;
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.circuit-component p {
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+/* Lines for Circuit Diagram */
+.circuit-line {
+    width: 2px;
+    height: 30px;
+    background-color: var(--primary-color);
+    position: relative;
+    margin-bottom: var(--spacing-md);
+}
+
+.circuit-line::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 6px 0 6px;
+    border-color: var(--primary-color) transparent transparent transparent;
+    left: -5px;
+    bottom: -10px;
+}
+
+/* Horizontal Rule (Divider) */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: var(--spacing-lg) 0;
+}
+
+/* Estilos para lista de Componentes */
+.components-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Permitir ajuste a 1 o 2 columnas */
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.component-item {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-subtle);
+    border: 1px solid var(--border-color);
+}
+
+.component-item h4 {
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.component-item i {
+    color: var(--accent-color);
+    font-size: 1.2em;
+}
+
+.component-item p {
+    color: var(--text-color);
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
+
+.component-item ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.component-item ul li {
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    display: list-item;
+    gap: 0;
+}
+
+/* Estilos para pasos de configuración (Base de Datos) */
+.setup-steps {
+    list-style: none;
+    padding-left: 0;
+    margin-top: var(--spacing-sm);
+}
+
+.setup-steps li {
+    background-color: var(--background-light);
+    border-left: 4px solid var(--primary-color);
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius-medium);
+    color: var(--text-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    box-shadow: var(--shadow-subtle);
+}
+
+.setup-steps li i {
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.setup-steps li a {
+    color: var(--primary-color-dark);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.setup-steps li a:hover {
+    text-decoration: underline;
+}
+
+.setup-steps pre code.code-block {
+    background-color: #e9e9e9;
+    color: #333;
+    padding: 10px;
+    border-radius: var(--border-radius-medium);
+    margin-top: 10px;
+    display: block;
+    overflow-x: auto;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+
+
+/* Estilos para lista de Librerías */
+.libraries-list {
+    list-style: square;
+    padding-left: 25px;
+    margin-top: var(--spacing-sm);
+}
+
+.libraries-list li {
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    display: list-item;
+    gap: 0;
+}
+
+.libraries-list li strong {
+    color: var(--primary-color-dark);
+}
+
+
+/* --- MANUAL DE USO --- */
+
+/* Project Info section (moved to Manual) */
+.page-content-card .project-info {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-lg);
+}
+
+.page-content-card .project-info h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-content-card .project-info h3 i {
+    color: var(--primary-color);
+    font-size: 1.2em;
+}
+
+.manual-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.manual-step-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-subtle);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.manual-icon {
+    font-size: var(--font-size-xl);
+    color: var(--light-text-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.manual-step-card h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+}
+
+.manual-step-card p {
+    font-size: var(--font-size-md);
+    color: var(--text-color);
+}
+
+
+/* --- Acerca de Nosotros --- */
+
+.group-photo-container {
+    text-align: center;
+    margin: var(--spacing-lg) auto;
+    max-width: 800px;
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+.group-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--border-radius-large);
+}
+
+.photo-caption {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-top: var(--spacing-sm);
+    padding: 0 var(--spacing-md);
+}
+
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.member-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--card-background);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-subtle);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.member-icon {
+    font-size: var(--font-size-md);
+    color: var(--accent-color);
+}
+
+.member-card p {
+    margin: 0;
+    font-size: var(--font-size-md);
+    color: var(--text-color);
+}
+
+.project-info {
+    margin-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-lg);
+}
+
+.project-info h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+}
+
+.resource-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.resource-link {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-medium);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: var(--font-size-md);
+    font-weight: 500;
+}
+
+.resource-link .fab,
+.resource-link .fas {
+    margin-right: var(--spacing-sm);
+}
+
+.github-link {
+    background-color: #333;
+    color: #fff;
+}
+
+.github-link:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+/* Colores específicos para redes sociales */
+.resource-link.social-link {
+    background-color: var(--primary-color);
+    color: white;
+}
+.resource-link.social-link:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+}
+
+.resource-link.social-link.linkedin-btn {
+    background-color: #0077B5;
+}
+.resource-link.social-link.linkedin-btn:hover {
+    background-color: #00568B;
+}
+
+.resource-link.social-link.twitter-btn {
+    background-color: #1DA1F2;
+}
+.resource-link.social-link.twitter-btn:hover {
+    background-color: #0E8CDD;
+}
+
+.resource-link.social-link.email-btn {
+    background-color: #D44638;
+}
+.resource-link.social-link.email-btn:hover {
+    background-color: #B4362A;
+}
+
+
+.project-date {
+    margin-top: var(--spacing-md);
+    text-align: right;
+    font-size: small;
+    color: var(--light-text-color);
+}
+
+/* Estilos para el Álbum de Fotos */
+.photo-album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.photo-item {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-subtle);
+    overflow: hidden;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    padding: 0;
+}
+
+.photo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.album-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.album-caption {
+    padding: var(--spacing-sm);
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    text-align: center;
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--card-background);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+
+/* Responsividad */
+@media (max-width: 1200px) {
+    .content {
+        padding: 20px;
+    }
+    .navbar-nav {
+        gap: 20px;
+    }
+    .nav-link {
+        font-size: 0.95em;
+        gap: 6px;
+    }
+    /* Chart container min-width adjustment for smaller desktops/large tablets */
+    .chart-container {
+        min-width: unset; /* Allow it to shrink */
+        width: 100%; /* Take full width if needed */
+    }
+    .metrics-panel {
+        min-width: unset; /* Allow it to shrink */
+        width: 100%; /* Take full width if needed */
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        padding: 15px 25px;
+    }
+    .navbar-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--card-background);
+        position: absolute;
+        top: 70px;
+        left: 0;
+        box-shadow: var(--shadow-medium);
+        border-top: 1px solid var(--border-color);
+        padding: 15px 0;
+    }
+    .navbar-nav.active {
+        display: flex;
+    }
+    .nav-link {
+        padding: 12px 25px;
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+    .navbar-toggler {
+        display: block;
+    }
+
+    .data-display-area {
+        flex-direction: column;
+        gap: 20px;
+    }
+    /* Ensure these take full width on smaller screens */
+    .chart-container,
+    .metrics-panel {
+        min-width: unset;
+        width: 100%;
+    }
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .dashboard-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .page-content-card h2 {
+        font-size: 1.8em;
+    }
+    .page-content-card h3 {
+        font-size: 1.4em;
+    }
+
+    /* Diagram responsiveness */
+    .architecture-diagram {
+        flex-direction: column;
+        padding: var(--spacing-md); /* Reduce padding for smaller screens */
+    }
+    .arch-arrow {
+        width: 2px;
+        height: 50px;
+    }
+    .arch-arrow::after {
+        border-width: 10px 6px 0 6px;
+        border-color: var(--primary-color) transparent transparent transparent;
+        right: -5px;
+        top: auto;
+        bottom: -10px;
+    }
+    .circuit-diagram {
+        padding: var(--spacing-md); /* Reduce padding for smaller screens */
+    }
+    .circuit-component {
+        width: 100%; /* Ensure full width on mobile */
+    }
+    .components-list {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+    .setup-steps li {
+        padding: 8px 10px; /* Reduce padding for mobile steps */
+    }
+    .photo-album-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+    .album-img {
+        height: 250px; /* Ajusta la altura para móviles */
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        font-size: 14px;
+    }
+    .navbar {
+        padding: 10px 15px;
+    }
+    .navbar-brand h1 {
+        font-size: 1.5em;
+    }
+    .content {
+        padding: 15px; /* Reduce padding for very small screens */
+    }
+    .card {
+        padding: 20px;
+    }
+    .dashboard-header h2 {
+        font-size: 2em;
+    }
+    .status-message {
+        font-size: 1em;
+        padding: 15px;
+    }
+    .metric-value {
+        font-size: 1.8em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+    .diagram-container {
+        padding: var(--spacing-sm); /* Further reduce padding for very small screens */
+    }
+    .arch-block {
+        min-width: unset; /* Allow blocks to shrink further */
+        padding: var(--spacing-sm);
+    }
+    .circuit-component {
+        padding: var(--spacing-sm);
+    }
+}
