@@ -29,6 +29,13 @@
     --spacing-md: 20px;
     --spacing-lg: 30px;
     --spacing-xl: 40px;
+
+    /* Colores para cables en el diagrama de circuito (ya no se usan directamente) */
+    --wire-red: #dc3545;
+    --wire-green: #28a745;
+    --wire-blue: #007bff;
+    --wire-black: #343a40;
+    --wire-cyan: #17a2b8;
 }
 
 /* Base y Tipografía */
@@ -204,7 +211,7 @@ body {
 .page-content-card h3 {
     color: var(--text-color);
     margin-top: 30px;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Espacio entre el título y el contenido de la sección */
     font-size: 1.6em;
     font-weight: 600;
 }
@@ -248,11 +255,13 @@ body {
     border-left: 5px solid #ffc107;
     padding: 15px;
     border-radius: var(--border-radius-medium);
-    margin-top: 30px;
+    margin-top: 30px; /* Ajustado para el nuevo posicionamiento */
+    margin-bottom: 15px; /* Añadido para espacio inferior */
     color: #856404;
     display: flex;
     align-items: flex-start;
     gap: 10px;
+    width: 100%; /* Asegura que la nota ocupe todo el ancho disponible */
 }
 .page-content-card .note i {
     color: #ffc107;
@@ -299,49 +308,82 @@ body {
 
 .data-display-area {
     display: flex;
+    flex-direction: column; /* Apila el gráfico y el panel de métricas por defecto */
     gap: 30px;
-    flex-wrap: wrap;
     margin-bottom: 40px;
-    justify-content: center; /* Centra los elementos cuando se envuelven */
+    align-items: center; /* Centra los elementos apilados */
+    width: 100%; /* Asegura que ocupe el 100% del ancho disponible */
 }
 
 .chart-container {
-    flex: 2;
-    min-width: 500px; /* Mantener para desktop */
-    max-width: 100%; /* Asegura que no desborde */
-    padding: 30px;
+    flex: none; /* No crecerá ni encogerá */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    padding: 30px; /* Mantener el padding interno */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el ancho/alto */
 }
 
 .chart-container h3 {
     text-align: center;
     color: var(--text-color);
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* Espacio entre el título y la gráfica */
     font-size: 1.8em;
     font-weight: 600;
 }
 
+/* Nuevo wrapper para el canvas que maneja el aspecto ratio y el posicionamiento */
+.canvas-wrapper {
+    height: 0; /* Necesario para que padding-bottom funcione como aspecto ratio */
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9/16 = 0.5625) */
+    position: relative; /* Necesario para posicionar el canvas absolutamente */
+    width: 100%; /* Asegura que el wrapper ocupe todo el ancho disponible */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+}
+
+/* Estilo para el canvas dentro del nuevo wrapper */
+.canvas-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block; /* Asegura que se comporte como un elemento de bloque */
+    position: absolute; /* Posiciona el canvas absolutamente dentro de su contenedor */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
 .metrics-panel {
-    flex: 1;
-    min-width: 320px; /* Mantener para desktop */
-    max-width: 100%; /* Asegura que no desborde */
+    flex: none; /* No crecerá ni encogerá */
+    width: 100%; /* Ocupa todo el ancho disponible */
     padding: 30px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: column; /* Título y wrapper de métricas se apilan */
+    gap: 25px; /* Espacio entre título y wrapper de métricas */
 }
 
 .metrics-panel h3 {
     text-align: center;
     color: var(--text-color);
-    margin-bottom: 25px;
+    margin-bottom: 0; /* Elimina el margin-bottom predeterminado ya que el gap lo maneja */
     font-size: 1.8em;
     font-weight: 600;
 }
 
+.metrics-cards-wrapper { /* Nuevo wrapper para las tarjetas de métricas */
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    gap: 20px; /* Espacio entre las tarjetas de métricas individuales */
+    width: 100%; /* Asegura que el wrapper ocupe todo el ancho */
+}
+
 .metric-card {
+    flex: 1 1 auto; /* Permite que las tarjetas crezcan y se encojan */
+    min-width: 200px; /* Ancho mínimo para cada tarjeta */
+    max-width: 280px; /* Ancho máximo para cada tarjeta en pantallas grandes */
     background-color: var(--background-light);
     border-radius: var(--border-radius-medium);
-    padding: 18px 25px;
+    padding: 18px 25px; /* Ajustado el padding para más espacio interno */
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -371,13 +413,14 @@ body {
     margin-bottom: 5px;
     text-transform: uppercase;
     font-weight: 600;
+    line-height: 1.3; /* Ajustado para mejor legibilidad del título */
 }
 
 .metric-value {
     font-size: 2.2em;
     font-weight: 700;
     color: var(--primary-color-dark);
-    line-height: 1;
+    line-height: 1.3; /* Ajustado para mejor legibilidad del valor */
 }
 
 .dashboard-controls {
@@ -385,6 +428,7 @@ body {
     justify-content: center;
     gap: 25px;
 }
+
 
 /* Estilo de Botones Mejorado */
 .btn {
@@ -439,10 +483,10 @@ body {
 }
 
 
-/* --- Arquitectura de Software (Nueva distribución y estilo) --- */
+/* --- Arquitectura de Software (ya no se usa, se reemplazó por imagen) --- */
 .architecture-steps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Permitir que se ajuste a 1 o 2 columnas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
 }
@@ -489,6 +533,13 @@ body {
     justify-content: center;
 }
 
+.diagram-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--border-radius-medium);
+}
+
 .diagram-caption {
     font-size: 0.9em;
     color: var(--light-text-color);
@@ -496,15 +547,22 @@ body {
     padding: 0 var(--spacing-sm);
 }
 
-/* Architecture Diagram Specific Styles */
+/* Architecture Diagram Specific Styles (ya no se usan directamente) */
 .architecture-diagram {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: var(--spacing-lg);
+    gap: 40px;
     padding: var(--spacing-xl);
     min-height: 250px;
+    width: 100%;
+}
+
+.arch-level-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
     width: 100%;
 }
 
@@ -514,97 +572,340 @@ body {
     border-radius: var(--border-radius-medium);
     padding: var(--spacing-md);
     text-align: center;
-    min-width: 150px;
-    flex-grow: 1;
-    flex-basis: auto;
+    min-width: 200px;
+    max-width: 300px;
+    width: 100%;
     box-shadow: var(--shadow-subtle);
 }
 
 .arch-block h4 {
     color: var(--primary-color-dark);
     margin-bottom: var(--spacing-sm);
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
-.arch-block p {
-    font-size: 0.9em;
+.arch-block p, .arch-block ul {
+    font-size: 0.95em;
     color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-/* Arrows for Architecture Diagram */
-.arch-arrow {
-    width: 50px;
-    height: 2px;
-    background-color: var(--primary-color);
-    position: relative;
-    flex-shrink: 0;
+.arch-block ul li {
+    margin-bottom: 5px;
+    text-align: left;
 }
 
-.arch-arrow::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 6px 0 6px 10px;
-    border-color: transparent transparent transparent var(--primary-color);
-    right: -10px;
-    top: -5px;
+.flow-arrow-down {
+    font-size: 2em;
+    color: var(--primary-color);
 }
 
-/* Circuit Diagram Specific Styles */
+.flow-label {
+    font-size: 1em;
+    color: var(--light-text-color);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+/* Circuit Diagram Specific Styles (ya no se usan directamente) */
 .circuit-diagram {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: var(--spacing-xl);
-    min-height: 400px;
+    min-height: 600px;
     width: 100%;
+    position: relative;
 }
 
-.circuit-component {
+.circuit-board-representation {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    height: 450px;
+    background-color: #d4b58c;
+    border: 3px solid #a08050;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.esp32-component {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #555;
+}
+
+.esp32-component i {
+    font-size: 3em;
+    color: #bbb;
+    margin-bottom: 10px;
+}
+
+.esp32-component h4 {
+    color: #eee;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.esp32-pins {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.pin-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+
+.pin-label {
+    background-color: #555;
+    color: #eee;
+    font-size: 0.7em;
+    padding: 2px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    box-sizing: border-box;
+}
+
+.pin-group.right-pins .pin-label {
+    flex-direction: row-reverse;
+}
+
+.pin-connection {
+    font-weight: bold;
+    color: yellow;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+
+.pin-connection.sda, .pin-connection.scl { color: var(--wire-cyan); }
+.pin-connection.led-red { color: var(--wire-red); }
+.pin-connection.led-green { color: var(--wire-green); }
+.pin-connection.led-blue { color: var(--wire-blue); }
+.pin-connection.switch { color: var(--wire-black); }
+
+
+.adxl345-component {
+    position: absolute;
+    top: 10%;
+    left: 10%;
     background-color: var(--background-light);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-medium);
-    padding: var(--spacing-md);
-    text-align: center;
-    margin-bottom: var(--spacing-md);
-    width: 200px;
-    max-width: 100%;
+    padding: 10px;
     box-shadow: var(--shadow-subtle);
+    width: 120px;
+    text-align: center;
 }
 
-.circuit-component i {
+.adxl345-component i {
     font-size: 2em;
     color: var(--accent-color);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 5px;
 }
 
-.circuit-component p {
-    font-size: 0.9em;
+.adxl-pins {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.adxl-pin {
+    font-size: 0.7em;
+    font-weight: 600;
+    color: var(--light-text-color);
+    padding: 2px 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background-color: #f8f9fa;
+}
+
+.led-components {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    display: flex;
+    gap: 15px;
+}
+
+.led-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.led-item i {
+    font-size: 1.8em;
+    margin-bottom: 0;
+}
+
+.led-item p {
+    font-size: 0.8em;
     color: var(--text-color);
 }
 
-/* Lines for Circuit Diagram */
-.circuit-line {
-    width: 2px;
-    height: 30px;
-    background-color: var(--primary-color);
-    position: relative;
-    margin-bottom: var(--spacing-md);
+.led-red-icon { color: var(--wire-red); }
+.led-green-icon { color: var(--wire-green); }
+.led-blue-icon { color: var(--wire-blue); }
+
+.switch-component {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 10px;
+    box-shadow: var(--shadow-subtle);
+    width: 120px;
+    text-align: center;
 }
 
-.circuit-line::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 6px 0 6px;
-    border-color: var(--primary-color) transparent transparent transparent;
-    left: -5px;
-    bottom: -10px;
+.switch-component i {
+    font-size: 2em;
+    color: var(--light-text-color);
+    margin-bottom: 5px;
 }
+
+.power-source-component {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 10px;
+    box-shadow: var(--shadow-subtle);
+    width: 140px;
+    text-align: center;
+}
+
+.power-source-component i {
+    font-size: 2em;
+    color: #ffc107;
+    margin-bottom: 5px;
+}
+
+.wire {
+    position: absolute;
+    background-color: black;
+    z-index: 0;
+}
+
+.wire-sda {
+    background-color: var(--wire-cyan);
+    width: 80px;
+    height: 2px;
+    top: 15%;
+    left: calc(10% + 120px);
+    transform-origin: left center;
+    transform: rotate(0deg);
+}
+
+.wire-scl {
+    background-color: var(--wire-cyan);
+    width: 80px;
+    height: 2px;
+    top: 25%;
+    left: calc(10% + 120px);
+    transform-origin: left center;
+    transform: rotate(0deg);
+}
+
+.wire-led-red {
+    background-color: var(--wire-red);
+    width: 2px;
+    height: 100px;
+    bottom: calc(10% + 70px);
+    left: calc(50% - 100px);
+}
+
+.wire-led-green {
+    background-color: var(--wire-green);
+    width: 2px;
+    height: 100px;
+    bottom: calc(10% + 70px);
+    left: calc(50% - 80px);
+}
+
+.wire-led-blue {
+    background-color: var(--wire-blue);
+    width: 2px;
+    height: 100px;
+    bottom: calc(10% + 70px);
+    left: calc(50% - 60px);
+}
+
+.wire-switch {
+    background-color: var(--wire-black);
+    width: 2px;
+    height: 100px;
+    bottom: calc(10% + 70px);
+    right: calc(10% + 50px);
+}
+
+
+.wire-power-pos {
+    background-color: var(--wire-red);
+    width: 2px;
+    height: 150px;
+    top: calc(10% + 70px);
+    right: calc(50% - 100px);
+}
+
+.wire-power-neg {
+    background-color: var(--wire-black);
+    width: 2px;
+    height: 150px;
+    top: calc(10% + 70px);
+    right: calc(50% - 120px);
+}
+
+.wire-adxl-vcc {
+    background-color: var(--wire-red);
+    width: 2px;
+    height: 80px;
+    top: calc(10% + 70px);
+    left: calc(10% + 50px);
+}
+
+.wire-adxl-gnd {
+    background-color: var(--wire-black);
+    width: 2px;
+    height: 80px;
+    top: calc(10% + 90px);
+    left: calc(10% + 70px);
+}
+
 
 /* Horizontal Rule (Divider) */
 hr {
@@ -622,10 +923,10 @@ hr {
 }
 
 .component-item {
-    background-color: var(--background-light);
+    background-color: var(--card-background);
     border-radius: var(--border-radius-medium);
-    padding: var(--spacing-md);
     box-shadow: var(--shadow-subtle);
+    padding: var(--spacing-md);
     border: 1px solid var(--border-color);
 }
 
@@ -706,7 +1007,8 @@ hr {
     border-radius: var(--border-radius-medium);
     margin-top: 10px;
     display: block;
-    overflow-x: auto;
+    overflow-x: auto; /* Asegura que el scroll horizontal solo sea para el código */
+    max-width: 100%; /* Limita el ancho del bloque de código */
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
     font-size: 0.9em;
 }
@@ -980,6 +1282,34 @@ hr {
 
 
 /* Responsividad */
+@media (min-width: 993px) { /* Para pantallas más grandes que 992px (desktop) */
+    .data-display-area {
+        flex-direction: column; /* Apila el gráfico y el panel de métricas */
+    }
+    .metrics-panel {
+        display: flex;
+        flex-direction: column; /* Título y wrapper de métricas se apilan */
+        gap: 25px; /* Espacio entre título y wrapper de métricas */
+    }
+    .metrics-panel h3 {
+        text-align: center;
+        margin-bottom: 0; /* Elimina el margin-bottom predeterminado ya que el gap lo maneja */
+    }
+    .metrics-cards-wrapper {
+        display: flex;
+        flex-direction: row; /* Las métricas individuales se distribuyen horizontalmente */
+        flex-wrap: wrap; /* Permite que las métricas se envuelvan */
+        justify-content: center; /* Centra las métricas horizontalmente */
+        gap: 20px; /* Espacio entre las métricas */
+    }
+    .metric-card {
+        flex: 1 1 auto; /* Permite que las tarjetas de métricas crezcan y se encojan */
+        min-width: 200px; /* Ancho mínimo para cada tarjeta de métrica */
+        max-width: 280px; /* Ancho máximo para cada tarjeta de métrica */
+    }
+}
+
+
 @media (max-width: 1200px) {
     .content {
         padding: 20px;
@@ -993,12 +1323,12 @@ hr {
     }
     /* Chart container min-width adjustment for smaller desktops/large tablets */
     .chart-container {
-        min-width: unset; /* Allow it to shrink */
-        width: 100%; /* Take full width if needed */
+        min-width: unset; /* Permitir que se encoja */
+        width: 100%; /* Ocupar todo el ancho si es necesario */
     }
     .metrics-panel {
-        min-width: unset; /* Allow it to shrink */
-        width: 100%; /* Take full width if needed */
+        min-width: unset; /* Permitir que se encoja */
+        width: 100%; /* Ocupar todo el ancho si es necesario */
     }
 }
 
@@ -1034,10 +1364,10 @@ hr {
     }
 
     .data-display-area {
-        flex-direction: column;
+        flex-direction: column; /* Asegura que se apilen en móvil */
         gap: 20px;
     }
-    /* Ensure these take full width on smaller screens */
+    /* Asegurar que estos ocupen todo el ancho en pantallas más pequeñas */
     .chart-container,
     .metrics-panel {
         min-width: unset;
@@ -1063,39 +1393,75 @@ hr {
         font-size: 1.4em;
     }
 
-    /* Diagram responsiveness */
-    .architecture-diagram {
-        flex-direction: column;
-        padding: var(--spacing-md); /* Reduce padding for smaller screens */
+    /* Responsividad de diagramas (Ahora solo para el contenedor general de imagen) */
+    .diagram-container {
+        padding: var(--spacing-sm); /* Reducir padding para pantallas más pequeñas */
     }
-    .arch-arrow {
-        width: 2px;
-        height: 50px;
+    .diagram-container img {
+        width: 100%; /* Asegurar que la imagen ocupe todo el ancho */
+        height: auto; /* Mantener aspecto ratio */
     }
-    .arch-arrow::after {
-        border-width: 10px 6px 0 6px;
-        border-color: var(--primary-color) transparent transparent transparent;
-        right: -5px;
-        top: auto;
-        bottom: -10px;
+
+    /* Eliminar estilos de diagramas complejos en móvil */
+    .architecture-diagram,
+    .arch-level-group,
+    .arch-block,
+    .flow-arrow-down,
+    .flow-label,
+    .circuit-diagram,
+    .circuit-board-representation,
+    .esp32-component,
+    .esp32-pins,
+    .pin-group,
+    .pin-label,
+    .pin-connection,
+    .adxl345-component,
+    .adxl-pins,
+    .led-components,
+    .led-item,
+    .switch-component,
+    .power-source-component,
+    .wire,
+    .wire-sda,
+    .wire-scl,
+    .wire-led-red,
+    .wire-led-green,
+    .wire-led-blue,
+    .wire-switch,
+    .wire-power-pos,
+    .wire-power-neg,
+    .wire-adxl-vcc,
+    .wire-adxl-gnd {
+        /* Reset o display: none para ocultar/simplificar en móvil si es necesario */
+        position: static !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        background-color: transparent !important;
+        color: inherit !important;
+        text-align: center !important;
     }
-    .circuit-diagram {
-        padding: var(--spacing-md); /* Reduce padding for smaller screens */
+    .wire {
+        display: none !important; /* Asegurarse de que los "cables" no se muestren */
     }
-    .circuit-component {
-        width: 100%; /* Ensure full width on mobile */
-    }
+
     .components-list {
         grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
     }
     .setup-steps li {
-        padding: 8px 10px; /* Reduce padding for mobile steps */
+        padding: 8px 10px; /* Reducir padding para pasos en móvil */
     }
     .photo-album-grid {
         grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
     }
     .album-img {
-        height: 250px; /* Ajusta la altura para móviles */
+        height: 250px; /* Ajustar la altura para móviles */
     }
 }
 
@@ -1110,7 +1476,7 @@ hr {
         font-size: 1.5em;
     }
     .content {
-        padding: 15px; /* Reduce padding for very small screens */
+        padding: 15px; /* Reducir padding para pantallas muy pequeñas */
     }
     .card {
         padding: 20px;
@@ -1130,13 +1496,16 @@ hr {
         font-size: 0.95em;
     }
     .diagram-container {
-        padding: var(--spacing-sm); /* Further reduce padding for very small screens */
+        padding: var(--spacing-sm); /* Reducir aún más el padding para pantallas muy pequeñas */
     }
     .arch-block {
-        min-width: unset; /* Allow blocks to shrink further */
+        min-width: unset; /* Permitir que los bloques se encojan aún más */
         padding: var(--spacing-sm);
     }
     .circuit-component {
         padding: var(--spacing-sm);
+    }
+    .pin-label {
+        width: 80px; /* Adjust pin label width for very small screens */
     }
 }

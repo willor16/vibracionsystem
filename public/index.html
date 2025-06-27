@@ -9,7 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-decimation@1.4.0/dist/chartjs-plugin-decimation.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/fft.js@0.3.0/dist/fft.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -61,44 +64,54 @@
                 </div>
 
                 <div class="data-display-area">
-                    <div class="card chart-container">
+                    <div class="card chart-container" id="chart-export-container">
                         <h3>Gráfica de Oscilación (Dominio del Tiempo)</h3>
-                        <canvas id="timeDomainChart"></canvas>
+                        <div class="canvas-wrapper">
+                            <canvas id="timeDomainChart"></canvas>
+                        </div>
+                           <p style="text-align: center; font-size: 0.8em; color: #888; margin-top: 10px;">
+                                Use la rueda del ratón para hacer zoom y arrastre para desplazarse.
+                            </p>
                     </div>
                     <div class="card metrics-panel">
                         <h3>Métricas Clave (Eje Y)</h3>
-                        <div class="metric-card">
-                            <div class="metric-icon"><i class="fas fa-ruler-vertical"></i></div>
-                            <div class="metric-info">
-                                <h4>Aceleración Instantánea</h4>
-                                <p id="accY-instant" class="metric-value">--</p>
+                        <div class="metrics-cards-wrapper">
+                            <div class="metric-card">
+                                <div class="metric-icon"><i class="fas fa-ruler-vertical"></i></div>
+                                <div class="metric-info">
+                                    <h4>Aceleración Instantánea</h4>
+                                    <p id="accY-instant" class="metric-value">--</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-icon"><i class="fas fa-arrows-alt-v"></i></div>
-                            <div class="metric-info">
-                                <h4>Amplitud Pico-Pico</h4>
-                                <p id="amplitudeY-pp" class="metric-value">--</p>
+                            <div class="metric-card">
+                                <div class="metric-icon"><i class="fas fa-arrows-alt-v"></i></div>
+                                <div class="metric-info">
+                                    <h4>Amplitud Pico-Pico</h4>
+                                    <p id="amplitudeY-pp" class="metric-value">--</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
-                            <div class="metric-info">
-                                <h4>Frecuencia Dominante</h4>
-                                <p id="frequencyY-dom" class="metric-value">--</p>
+                            <div class="metric-card">
+                                <div class="metric-icon"><i class="fas fa-wave-square"></i></div>
+                                <div class="metric-info">
+                                    <h4>Frecuencia Dominante</h4>
+                                    <p id="frequencyY-dom" class="metric-value">--</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-icon"><i class="fas fa-hourglass-half"></i></div>
-                            <div class="metric-info">
-                                <h4>Período</h4>
-                                <p id="periodY" class="metric-value">--</p>
+                            <div class="metric-card">
+                                <div class="metric-icon"><i class="fas fa-hourglass-half"></i></div>
+                                <div class="metric-info">
+                                    <h4>Período</h4>
+                                    <p id="periodY" class="metric-value">--</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="dashboard-controls">
+                    <button id="reset-zoom-btn" class="btn btn-secondary" style="display: none;">
+                        <i class="fas fa-search-minus"></i> Reiniciar Zoom
+                    </button>
                     <button id="clear-page-btn" class="btn btn-secondary">
                         <i class="fas fa-eraser"></i> Limpiar Pantalla
                     </button>
@@ -141,44 +154,14 @@
                 <li><i class="fas fa-file-pdf"></i> <strong>jsPDF + html2canvas:</strong> Librerías JavaScript empleadas para generar y exportar informes de vibración en formato PDF, incluyendo las gráficas y métricas relevantes.</li>
                 </ul>
 
-                <h3>Arquitectura de Software</h3>
-                <div class="architecture-steps-grid">
-                    <div class="architecture-step-card">
-                        <h4>1. Adquisición de Datos</h4>
-                        <p>El ESP32 lee continuamente los datos del acelerómetro ADXL345 a intervalos fijos. Estos datos se almacenan temporalmente en la memoria del microcontrolador.</p>
-                    </div>
-                    <div class="architecture-step-card">
-                        <h4>2. Procesamiento de Datos</h4>
-                        <p>Al detener la captura de datos, el ESP32 procesa las lecturas de aceleración para calcular el desplazamiento de la vibración.</p>
-                    </div>
-                    <div class="architecture-step-card">
-                        <h4>3. Transmisión de Datos</h4>
-                        <p>Una vez procesados, el lote de datos se convierte a formato JSON y se sube automáticamente a la ruta <code>/lecturas</code> en la Realtime Database de Firebase, reemplazando el lote previo.</p>
-                    </div>
-                    <div class="architecture-step-card">
-                        <h4>4. Interfaz Web</h4>
-                        <p>La aplicación web es una Single Page Application (SPA) desarrollada con HTML para la estructura, CSS para el diseño visual y JavaScript para la interactividad. Esta interfaz solicita el último lote de datos de Firebase, grafica el desplazamiento en función del tiempo y muestra métricas clave de vibración.</p>
-                    </div>
-                    <div class="architecture-step-card">
-                        <h4>5. Generación de Reportes</h4>
-                        <p>Con un simple clic, la interfaz web genera un informe en formato PDF que incluye la gráfica de vibración, las métricas calculadas y la fecha/hora de generación del reporte.</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <h3>Diagrama de Arquitectura General</h3>
-                <div class="diagram-container">
-                    <img src="assets/arquitectura-diagrama.png" alt="Diagrama de Arquitectura" class="diagram-img">
-                    <p class="diagram-caption">Representación de la arquitectura de software y hardware del sistema.</p>
-                </div>
+                
 
                 <hr>
 
                 <h3>Diagrama del Circuito Electrónico</h3>
                 <div class="diagram-container">
-                    <img src="assets/circuito-diagrama.png" alt="Diagrama del Circuito" class="diagram-img">
-                    <p class="diagram-caption">Esquema de las conexiones de los componentes electrónicos.</p>
+                    <img src="resources/circuito.jpg" alt="Diagrama del Circuito" class="diagram-img" onerror="this.onerror=null;this.src='https://placehold.co/800x450/E0E0E0/6C757D?text=Error+Carga+Imagen'; console.error('Error al cargar la imagen del circuito. Verifique la ruta local.');">
+                    <p class="diagram-caption">Diagrama de conexiones del circuito electrónico.</p>
                 </div>
 
                 <hr>
@@ -196,16 +179,16 @@
                     <div class="component-item">
                         <h4><i class="fas fa-lightbulb"></i> LEDs Indicadores</h4>
                         <ul>
-                            <li><strong>LED Verde:</strong> Indica que el ESP32 está encendido y el sistema está listo.</li>
-                            <li><strong>LED Rojo:</strong> Indica que el sistema está en modo de espera y no está recolectando datos. Se apaga cuando se inicia la captura.</li>
-                            <li><strong>LED Azul:</strong> Indica que se está realizando la captura de datos y la transmisión a la base de datos. Se enciende durante la fase de adquisición y se apaga al finalizar la transmisión.</li>
+                            <li><strong>LED Verde (GPIO 17):</strong> Indica que el ESP32 está encendido y el sistema está listo.</li>
+                            <li><strong>LED Rojo (GPIO 16):</strong> Indica que el sistema está en modo de espera y no está recolectando datos. Se apaga cuando se inicia la captura.</li>
+                            <li><strong>LED Azul (GPIO 18):</strong> Indica que se está realizando la captura de datos y la transmisión a la base de datos. Se enciende durante la fase de adquisición y se apaga al finalizar la transmisión.</li>
                         </ul>
                     </div>
                     <div class="component-item">
                         <h4><i class="fas fa-toggle-on"></i> Interruptores (Switches)</h4>
                         <ul>
                             <li><strong>Interruptor de Encendido/Apagado (ON/OFF):</strong> Controla el suministro de energía principal al circuito del ESP32 y sus componentes.</li>
-                            <li><strong>Interruptor de Captura de Datos:</strong> Activa y desactiva la fase de adquisición de datos del acelerómetro.</li>
+                            <li><strong>Interruptor de Captura de Datos (GPIO 5):</strong> Activa y desactiva la fase de adquisición de datos del acelerómetro.</li>
                         </ul>
                     </div>
                     <div class="component-item">
@@ -232,10 +215,12 @@
     ".write": "true"
   }
 }</code></pre>
-                        <p class="note"><i class="fas fa-exclamation-triangle"></i> <strong>ADVERTENCIA:</strong> Estas reglas son para desarrollo. Para una aplicación en producción, deberías implementar reglas de seguridad más estrictas.</p>
                     </li>
+                </ol>
+                <p class="note"><i class="fas fa-exclamation-triangle"></i> <strong>ADVERTENCIA:</strong> Estas reglas son para desarrollo. Para una aplicación en producción, deberías implementar reglas de seguridad más estrictas.</p>
+                <ol class="setup-steps" start="5">
                     <li><i class="fas fa-cog"></i> En la consola de Firebase, ve a "Configuración del proyecto" (Project settings) > "Cuentas de servicio" (Service accounts) > "Realtime Database secrets". Copia el **Secret de la base de datos (Database Secret)**; lo necesitarás para configurar el ESP32.</li>
-                    <li><i class="fas fa-code"></i> En tu código JavaScript para la web, en el archivo `script.js`, actualiza la configuración de Firebase con tus propias credenciales (apiKey, databaseURL, projectId, etc.).</li>
+                    <li><i class="fas fa-code"></i> En tu código JavaScript para la web, en el archivo script.js, actualiza la configuración de Firebase con tus propias credenciales (apiKey, databaseURL, projectId, etc.).</li>
                 </ol>
 
                 <h4><i class="fas fa-code"></i> Librerías de Arduino Necesarias</h4>
@@ -243,7 +228,7 @@
                 <ul class="libraries-list">
                     <li><strong><code>Firebase-ESP32</code>:</strong> Permite al ESP32 interactuar con la Realtime Database de Firebase.</li>
                     <li><strong><code>Adafruit Unified Sensor</code>:</strong> Librería base requerida por muchos sensores de Adafruit.</li>
-                    <li><strong><code>Adafruit ADXL345</code>:</strong> Driver específico para el acelerómetro ADXL345.</li>
+                    <li><strong><code>Adafruit ADXL345</code>:</b> Driver específico para el acelerómetro ADXL345.</li>
                     <li><strong><code>WiFi</code>:</strong> (Generalmente viene preinstalada con el soporte para ESP32 en Arduino IDE) Para la conectividad Wi-Fi.</li>
                 </ul>
                 <p class="note"><i class="fas fa-info-circle"></i> Asegúrate de tener instalado el soporte para placas ESP32 en tu Arduino IDE a través del Gestor de Tarjetas (Boards Manager).</p>
@@ -270,7 +255,7 @@
                     <h3><i class="fas fa-tools"></i> Recursos del Proyecto</h3>
                     <p>Aquí encontrarás los recursos esenciales para la configuración y desarrollo del proyecto.</p>
                     <div class="resource-links">
-                        <a href="https://github.com/tu-usuario/tu-repo" target="_blank" class="resource-link github-link">
+                        <a href="https://github.com/willor16/vibracionsystem" target="_blank" class="resource-link github-link">
                             <i class="fab fa-github"></i> Repositorio en GitHub
                         </a>
                         <a href="https://tu-red-social.com/tu-perfil-linkedin" target="_blank" class="resource-link social-link linkedin-btn">
@@ -319,14 +304,19 @@
                         <p>En la interfaz web, presione el botón **"Buscar Lote de Datos"**. La página buscará el lote más reciente en la base de datos. Si lo encuentra, la gráfica de oscilación se mostrará y se calcularán y exhibirán las métricas clave como amplitud, frecuencia y período.</p>
                     </div>
                     <div class="manual-step-card">
+                        <i class="fas fa-search-plus manual-icon"></i>
+                        <h3>7. Zoom y Desplazamiento</h3>
+                        <p>En la gráfica, use la **rueda del ratón** para acercar o alejar la vista. Una vez que haya hecho zoom, puede **hacer clic y arrastrar** la gráfica horizontalmente para desplazarse a través de los datos. Use el botón **"Reiniciar Zoom"** para volver a la vista completa.</p>
+                    </div>
+                    <div class="manual-step-card">
                         <i class="fas fa-sync-alt manual-icon"></i>
-                        <h3>7. Limpiar y Reiniciar</h3>
+                        <h3>8. Limpiar y Reiniciar</h3>
                         <p>Utilice el botón **"Limpiar Pantalla"** para borrar la gráfica y los datos actuales de la pantalla y prepararla para una nueva búsqueda.</p>
                     </div>
                     <div class="manual-step-card">
                         <i class="fas fa-download manual-icon"></i>
-                        <h3>8. Exportar Informe</h3>
-                        <p>Presione el botón **"Exportar a PDF"** para generar un informe en formato PDF con la gráfica y las métricas mostradas.</p>
+                        <h3>9. Exportar Informe de Alta Calidad</h3>
+                        <p>Presione el botón **"Exportar a PDF"** para generar un informe en formato PDF con la gráfica y las métricas mostradas. La imagen de la gráfica se generará en alta resolución para asegurar su claridad.</p>
                     </div>
                 </div>
                 <p class="note"><i class="fas fa-exclamation-triangle"></i> <strong>Nota:</strong> Debido a las limitaciones del hardware, se recomienda tomar en cuenta que el sensor no es un sensor profesional para la toma de datos debido al alto coste de los sensores profesionales. Además, la red Wi-Fi está precargada; para modificarla, visite el código en GitHub del desarrollador y cambie los datos de SSID, CONTRASEÑA, API KEY.</p>
@@ -336,12 +326,12 @@
         <section id="about-section" class="page-section">
             <div class="card page-content-card">
                 <h2>Acerca de Nosotros</h2>
-                <p>Este proyecto fue desarrollado como parte del curso de <strong>VIBRACIONES</strong> en <strong>UNIVERSIDAD DE SAN CARLOS DE GUATEMALA CUNOC</strong>, con el objetivo de crear una herramienta práctica y accesible para el monitoreo de vibraciones, combinando hardware de bajo costo con una interfaz de usuario moderna y funcional.</p>
+                <p>Este proyecto fue desarrollado como parte del curso de <strong>VIBRACIONES</strong> en <strong>UNIVERSIDAD DE SAN CARLOS DE GUATEMALA CUNOC</strong>, con el objetivo de crear una herramienta práctica y accesible para el monitoreo de vibraciones, combinando hardware de bajo costo con una interfaz de usuario moderna y funcional. los grupos fueron divididos en dos, la parte del software y electronica y la parte del testeo diseño analisis y comprobacion la cual fue fundamental para asegurarse de que el proyecto marchara de la mejor manera</p>
                 
                 <p>El curso de <strong>Vibraciones</strong> en la Universidad de San Carlos de Guatemala (CUNOC) se enfoca en el estudio de los fenómenos oscilatorios en sistemas mecánicos, abordando desde los fundamentos teóricos hasta sus aplicaciones prácticas en ingeniería. A través de este proyecto, aplicamos los conocimientos adquiridos sobre análisis de vibraciones y diseño de sistemas de monitoreo para desarrollar una solución innovadora y de bajo costo.</p>
 
                 <div class="group-photo-container">
-                    <img src="https://placehold.co/600x300/E0E0E0/6C757D?text=Foto+Grupal+Aqui" alt="Foto del equipo de desarrollo" class="group-photo">
+                    <img src="resources/nosotros.jpg" alt="Foto del equipo de desarrollo" class="group-photo" onerror="this.onerror=null;this.src='https://placehold.co/600x300/E0E0E0/6C757D?text=Error+Carga+Imagen'; console.error('Error al cargar la imagen del equipo. Verifique la ruta local.');">
                     <p class="photo-caption">Nuestro equipo trabajando en el proyecto de monitoreo de vibraciones.</p>
                 </div>
 
@@ -349,19 +339,89 @@
                 <div class="team-members">
                     <div class="member-card">
                         <i class="fas fa-user-graduate member-icon"></i>
-                        <p><strong>Wilmer Lorenzo Choxom Chamorro.</strong> Programador de la interfaz y conexiones de DB y ESP32.</p>
+                        <p><strong>Wilmer Lorenzo Choxom Chamorro</strong> (201930246)<br>Programador de la interfaz, conexiones de DB y ESP32.</p>
                     </div>
                     <div class="member-card">
                         <i class="fas fa-user-graduate member-icon"></i>
-                        <p><strong>Atawalpa Itzamná Ixcayau Noj.</strong> Electrónica del proyecto.</p>
+                        <p><strong>Atawalpa Itzamná Ixcayau Noj</strong> (201930305)<br>Electrónica del proyecto.</p>
                     </div>
                     <div class="member-card">
                         <i class="fas fa-user-graduate member-icon"></i>
-                        <p><strong>Angel Roberto Yac Chan.</strong> Electrónica del proyecto.</p>
+                        <p><strong>Angel Roberto Yac Chan</strong> (201930035)<br>Electrónica del proyecto (diseño del circuito).</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>    
+                        <p><strong>Jaime Jefferson Hernández Reyes</strong> (201930237)<br>Electrónica del proyecto.</p>
                     </div>
                     <div class="member-card">
                         <i class="fas fa-user-graduate member-icon"></i>
-                        <p>Miembro Adicional (Nombre).</p>
+                        <p><strong>Jonattan Estuardo Morales Sacalxot</strong> (201831995)<br>Electrónica del proyecto.</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>José Alfonso Orozco Navarro</strong> (201930227)<br>Electrónica del proyecto.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3>Grupo de Análisis de Datos, Interpretación, ensamblaje, testeo y Diseño del Contenedor:</h3>
+                <div class="team-members">
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Cristian Aroldo Coxaj Hernández</strong> (201230907)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Pabloluis Enrique Toyom Vásquez</strong> (201830896)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Kevin Juan Manuel Navarro Orozco</strong> (201831656)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Jonatán Eliseo Poncio Tax</strong> (201930391)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Erickson Eduardo Alberto Gonzáles</strong> (201930961)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>José Abinadap Chaclán Ulín</strong> (201931349)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Erick Leonardo Cifuentes Godinez</strong> (201931750)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Enrique Vitalino Alvarado Ramos</strong> (202030483)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Edgar Leonel Solis Ramirez</strong> (202031651)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Jhonatan Josué Hernández López</strong> (202030444)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Carlos Josué Alejandro Tezó Castillo</strong> (202132078)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Fidel Fidencio Balux Conoz</strong> (202132421)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Juan Carlos Caxaj Gonzalez</strong> (202132473)</p>
+                    </div>
+                    <div class="member-card">
+                        <i class="fas fa-user-graduate member-icon"></i>
+                        <p><strong>Donaldo Ramiro Mejía Cifuentes</strong> (202132627)</p>
                     </div>
                 </div>
 
@@ -371,35 +431,35 @@
                 <p>Una colección de imágenes que muestran el progreso y los componentes clave de nuestro proyecto.</p>
                 <div class="photo-album-grid">
                     <div class="photo-item card">
-                        <img src="https://placehold.co/400x250/B0C4DE/4682B4?text=Foto+1" alt="Foto del proyecto 1" class="album-img">
-                        <p class="album-caption">Prototipo inicial del circuito.</p>
+                        <img src="resources/acelerometro.png" alt="Acelerómetro ADXL345" class="album-img" onerror="this.onerror=null;this.src='https://placehold.co/400x250/B0C4DE/4682B4?text=Error+Carga+Imagen'; console.error('Error al cargar acelerometro.png');">
+                        <p class="album-caption">Detalle del acelerómetro ADXL345.</p>
                     </div>
                     <div class="photo-item card">
-                        <img src="https://placehold.co/400x250/ADD8E6/4169E1?text=Foto+2" alt="Foto del proyecto 2" class="album-img">
-                        <p class="album-caption">Detalle del sensor ADXL345.</p>
+                        <img src="resources/prototipo.jpg" alt="Prototipo inicial" class="album-img" onerror="this.onerror=null;this.src='https://placehold.co/400x250/6A5ACD/483D8B?text=Error+Carga+Imagen'; console.error('Error al cargar prototipo.jpg');">
+                        <p class="album-caption">Prototipo inicial del dispositivo.</p>
                     </div>
                     <div class="photo-item card">
-                        <img src="https://placehold.co/400x250/87CEEB/000080?text=Foto+3" alt="Foto del proyecto 3" class="album-img">
-                        <p class="album-caption">Pruebas de vibración en el laboratorio.</p>
+                        <img src="resources/ensamblaje.jpg" alt="Ensamblaje del circuito" class="album-img" onerror="this.onerror=null;this.src='https://placehold.co/400x250/ADD8E6/4169E1?text=Error+Carga+Imagen'; console.error('Error al cargar ensamblaje.jpg');">
+                        <p class="album-caption">Ensamblaje del prototipo del circuito.</p>
                     </div>
                     <div class="photo-item card">
-                        <img src="https://placehold.co/400x250/6A5ACD/483D8B?text=Foto+4" alt="Foto del proyecto 4" class="album-img">
-                        <p class="album-caption">Interfaz web en funcionamiento.</p>
+                        <img src="resources/interfazfuncional.png" alt="Interfaz web funcional" class="album-img" onerror="this.onerror=null;this.src='https://placehold.co/400x250/87CEEB/000080?text=Error+Carga+Imagen'; console.error('Error al cargar interfazfuncional.png');">
+                        <p class="album-caption">Interfaz web funcional mostrando datos.</p>
                     </div>
                     <div class="photo-item card">
-                        <img src="https://placehold.co/400x250/483D8B/6A5ACD?text=Foto+5" alt="Foto del proyecto 5" class="album-img">
-                        <p class="album-caption">Ensamblaje final del dispositivo.</p>
+                        <img src="resources/pruebas.jpg" alt="Pruebas de vibración" class="album-img" onerror="this.onerror=null;this.src='https://placehold.co/400x250/483D8B/6A5ACD?text=Error+Carga+Imagen'; console.error('Error al cargar pruebas.jpg');">
+                        <p class="album-caption">Realizando pruebas de vibración en máquina.</p>
                     </div>
                     <div class="photo-item card">
-                        <img src="https://placehold.co/400x250/4169E1/ADD8E6?text=Foto+6" alt="Foto del proyecto 6" class="album-img">
-                        <p class="album-caption">Equipo revisando los resultados.</p>
+                        <img src="resources/revicion.jpg" alt="Revisión de resultados" class="album-img" onerror="this.onerror=null;this.src='https://placehold.co/400x250/4169E1/ADD8E6?text=Error+Carga+Imagen'; console.error('Error al cargar revicion.jpg');">
+                        <p class="album-caption">Equipo revisando los resultados del monitoreo.</p>
                     </div>
                 </div>
 
                 <div class="project-info">
                     <h3>Recursos del Proyecto</h3>
                     <div class="resource-links">
-                        <a href="https://github.com/tu-usuario/tu-repo" target="_blank" class="resource-link github-link">
+                        <a href="https://github.com/willor16/vibracionsystem" target="_blank" class="resource-link github-link">
                             <i class="fab fa-github"></i> Repositorio en GitHub
                         </a>
                         <a href="https://tu-red-social.com/tu-perfil-linkedin" target="_blank" class="resource-link social-link linkedin-btn">
