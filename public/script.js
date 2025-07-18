@@ -1,19 +1,16 @@
-// script.js completo con navegación SPA y mejoras: FFT + Zoom/Pan + Export HD
-
-// ===== 1. Configuración Firebase (sin cambios) =====
+// rellenar estos espacios con los datos de firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyAj2p3jlAfrssl_cVFCCmm0V6HQkAA2siM",
-    authDomain: "monitoreovibracion.firebaseapp.com",
-    databaseURL: "https://monitoreovibracion-default-rtdb.firebaseio.com",
-    projectId: "monitoreovibracion",
-    storageBucket: "monitoreovibracion.appspot.com",
-    messagingSenderId: "630972539103",
-    appId: "1:630972539103:web:b2f799725e752aa31c896a"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// ===== 2. Referencias al DOM (con adiciones) =====
 const timeDomainChartCanvas = document.getElementById('timeDomainChart');
 const accYInstantSpan = document.getElementById('accY-instant');
 const amplitudeYPpSpan = document.getElementById('amplitudeY-pp');
@@ -23,22 +20,19 @@ const fetchDataButton = document.getElementById('fetch-data-btn');
 const statusMessageDiv = document.getElementById('status-message');
 const clearPageButton = document.getElementById('clear-page-btn');
 const exportPdfButton = document.getElementById('export-pdf-btn');
-// --- MEJORA: Referencia al nuevo botón de reset zoom ---
+
 const resetZoomBtn = document.getElementById('reset-zoom-btn');
 
-let timeDomainChartInstance = null; // Renombrado para mayor claridad
+let timeDomainChartInstance = null; 
 
-// ===== 3. Crear/Actualizar Gráfica con MEJORAS (Zoom, Pan, Muestreo) =====
 function createOrUpdateChart(chartData) {
     if (timeDomainChartInstance) {
         timeDomainChartInstance.destroy();
     }
     
-    // --- MEJORA: Opciones de la gráfica actualizadas para las nuevas funcionalidades ---
     const chartOptions = {
         responsive: true,
-        maintainAspectRatio: false, // Mejor para wrappers flexibles
-        // Indica a Chart.js cómo leer los datos en formato {x, y}
+        maintainAspectRatio: false, 
         parsing: {
             xAxisKey: 'x',
             yAxisKey: 'y'
@@ -62,26 +56,23 @@ function createOrUpdateChart(chartData) {
         },
         plugins: {
             legend: { display: false },
-            // --- MEJORA 1: MUESTREO DE DATOS DINÁMICO ---
+
             decimation: {
                 enabled: true,
-                algorithm: 'lttb', // Algoritmo que preserva la forma de la gráfica
-                samples: 500,      // Muestra 500 puntos para mejorar el rendimiento
-                threshold: 1000    // Se activa si hay más de 1000 puntos
+                algorithm: 'lttb', 
+                samples: 500,     
+                threshold: 1000   
             },
-            // --- MEJORA 2: ZOOM Y PAN (DESPLAZAMIENTO) ---
             zoom: {
                 pan: {
                     enabled: true,
                     mode: 'x',
-                    // Muestra el botón de reset al hacer pan
                     onPanComplete: () => { resetZoomBtn.style.display = 'inline-block'; }
                 },
                 zoom: {
                     wheel: { enabled: true },
                     pinch: { enabled: true },
                     mode: 'x',
-                    // Muestra el botón de reset al hacer zoom
                     onZoomComplete: () => { resetZoomBtn.style.display = 'inline-block'; }
                 }
             }
@@ -93,19 +84,18 @@ function createOrUpdateChart(chartData) {
         data: {
             datasets: [{
                 label: 'Desplazamiento Eje Y (mm)',
-                data: chartData, // Ahora recibe los datos en formato {x, y}
+                data: chartData,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1,
                 fill: false,
                 borderWidth: 1.5,
-                pointRadius: 0 // Oculta los puntos para una línea más limpia
+                pointRadius: 0 
             }]
         },
         options: chartOptions
     });
 }
 
-// ===== FFT Utility (sin cambios) =====
 function computeFFT(data, sampleRate) {
   const n = data.length;
   if (n & (n - 1)) {
@@ -138,7 +128,6 @@ function computeFFT(data, sampleRate) {
   return re.map((r, i) => Math.sqrt(r * r + im[i] * im[i]));
 }
 
-// ===== 4. Cálculo de Métricas (con pequeña adaptación) =====
 function calculateMetrics(dataPoints, intervalMs, timeData) {
     if (!dataPoints.length) {
         return { instant: '--', peakToPeak: '--', dominantFrequency: '--', period: '--', chartData: [] };
@@ -163,7 +152,6 @@ function calculateMetrics(dataPoints, intervalMs, timeData) {
         period = (1 / freq).toFixed(2) + ' s';
     }
 
-    // --- MEJORA: Formatear datos para la nueva configuración de la gráfica ---
     const chartData = timeData.map((time, index) => ({
         x: time,
         y: parseFloat(displacementData[index].toFixed(2))
@@ -172,7 +160,6 @@ function calculateMetrics(dataPoints, intervalMs, timeData) {
     return { instant: instantAcceleration, peakToPeak, dominantFrequency, period, chartData };
 }
 
-// ===== 5. Fetch y UI update (con pequeña adaptación) =====
 async function fetchLatestVibrationData() {
     statusMessageDiv.textContent = 'Buscando y procesando datos...';
     statusMessageDiv.style.color = '#007bff';
@@ -190,7 +177,6 @@ async function fetchLatestVibrationData() {
         
         const metrics = calculateMetrics(amplitudeData, interval, timeData);
         
-        // --- MEJORA: Pasa el nuevo formato de datos a la gráfica ---
         createOrUpdateChart(metrics.chartData);
         
         accYInstantSpan.textContent = metrics.instant;
@@ -207,7 +193,6 @@ async function fetchLatestVibrationData() {
     }
 }
 
-// ===== 6. Limpiar UI (con pequeña adición) =====
 function clearChartAndMetrics() {
     if (timeDomainChartInstance) {
         timeDomainChartInstance.destroy();
@@ -220,11 +205,9 @@ function clearChartAndMetrics() {
     statusMessageDiv.textContent = 'Pantalla limpiada. Listo para una nueva búsqueda.';
     statusMessageDiv.style.display = 'block';
     
-    // --- MEJORA: Oculta el botón de reset al limpiar ---
     resetZoomBtn.style.display = 'none';
 }
 
-// ===== 7. Exportar a PDF (COMPLETAMENTE MEJORADO) =====
 async function exportToPdf() {
     const { jsPDF } = window.jspdf;
     const chartExportContainer = document.getElementById('chart-export-container');
@@ -242,8 +225,6 @@ async function exportToPdf() {
     statusMessageDiv.style.display = 'block';
     
     try {
-        // --- MEJORA 3: EXPORTACIÓN DE ALTA RESOLUCIÓN ---
-        // Se renderiza la gráfica a 3 veces su tamaño para una imagen nítida en el PDF
         const chartCanvas = await html2canvas(chartExportContainer, { 
             scale: 3, 
             useCORS: true, 
@@ -251,7 +232,6 @@ async function exportToPdf() {
         });
         const chartImageData = chartCanvas.toDataURL('image/png', 1.0);
 
-        // Captura el panel de métricas también
         const metricsCanvas = await html2canvas(metricsPanel, { 
             scale: 2, 
             backgroundColor: '#ffffff' 
@@ -269,14 +249,13 @@ async function exportToPdf() {
         pdf.setFontSize(10);
         pdf.text(`Fecha: ${new Date().toLocaleString()}`, pdfWidth / 2, margin + 8, { align: 'center' });
 
-        // Añadir Gráfica
         const chartImgProps = pdf.getImageProperties(chartImageData);
         const chartAspectRatio = chartImgProps.height / chartImgProps.width;
         const chartWidth = pdfWidth - 2 * margin;
         const chartHeight = chartWidth * chartAspectRatio;
         pdf.addImage(chartImageData, 'PNG', margin, margin + 20, chartWidth, chartHeight);
 
-        // Añadir Métricas
+
         const metricsImgProps = pdf.getImageProperties(metricsImageData);
         const metricsAspectRatio = metricsImgProps.height / metricsImgProps.width;
         const metricsWidth = pdfWidth - 2 * margin;
@@ -294,21 +273,20 @@ async function exportToPdf() {
     }
 }
 
-// ===== 8. Listeners y navegación SPA (con adiciones) =====
+
 document.addEventListener('DOMContentLoaded', () => {
     fetchDataButton.addEventListener('click', fetchLatestVibrationData);
     clearPageButton.addEventListener('click', clearChartAndMetrics);
     exportPdfButton.addEventListener('click', exportToPdf);
 
-    // --- MEJORA: Listener para el botón de reiniciar zoom ---
+  
     resetZoomBtn.addEventListener('click', () => {
         if (timeDomainChartInstance) {
             timeDomainChartInstance.resetZoom();
-            resetZoomBtn.style.display = 'none'; // Oculta el botón de nuevo
+            resetZoomBtn.style.display = 'none'; 
         }
     });
 
-    // Código de navegación SPA (sin cambios)
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarNav = document.querySelector('.navbar-nav');
     navbarToggler.addEventListener('click', () => navbarNav.classList.toggle('active'));

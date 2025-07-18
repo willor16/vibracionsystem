@@ -10,8 +10,8 @@ const int ledEncendido = 17;  // LED verde
 const int ledVibracion = 18;  // LED azul
 const int pinInterruptor = 5; // Interruptor
 
-const char* ssid = "S23wilmer";
-const char* password = "123456789";
+const char* ssid = ""; // nombre de la red
+const char* password = ""; // contraseña
 
 
 FirebaseData firebaseData;
@@ -71,8 +71,8 @@ void setup() {
   }
 
 
-  config.host = "monitoreovibracion-default-rtdb.firebaseio.com";
-  config.api_key = "AIzaSyAj2p3jlAfrssl_cVFCCmm0V6HQkAA2siM";
+  config.host = ""; //url del proyecto
+  config.api_key = ""; // apykey del proyecto de firebase
   config.time_zone = -6;
 
   auth.token.uid = "";

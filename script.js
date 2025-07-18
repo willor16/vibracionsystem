@@ -1,12 +1,13 @@
 // --- 1. CONFIGURACIÓN DE FIREBASE ---
+// --todos estos es informacion que debe colocarse con informacion de la base de datos del usuario---
 const firebaseConfig = {
-    apiKey: "AIzaSyAj2p3jlAfrssl_cVFCCmm0V6HQkAA2siM",
-    authDomain: "<monitoreovibracion>.firebaseapp.com",
-    databaseURL: "https://monitoreovibracion-default-rtdb.firebaseio.com",
+    apiKey: "", // aca va la clave de apikey
+    authDomain: "<>.firebaseapp.com", //aca ba el link del proyecto
+    databaseURL: "", //url por defecto del proyecto
     projectId: "<monitoreovibracion>",
-    storageBucket: "<monitoreovibracion>.appspot.com",
-    messagingSenderId: "630972539103",
-    appId: "1:630972539103:web:b2f799725e752aa31c896a",
+    storageBucket: "<>.appspot.com",
+    messagingSenderId: "",
+    appId: "", //appid
 };
 
 firebase.initializeApp(firebaseConfig);

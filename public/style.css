@@ -46,7 +46,7 @@
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: var(--font-family);|
     background-color: var(--background-light);
     color: var(--text-color);
     line-height: 1.6;
