@@ -3,19 +3,19 @@
   <br/>
   <br/>
   <p>
-    📈 ⚙️ 📊
+    ✨ 🤖 🌐
   </p>
   <h1>VibracionSystem</h1>
   <p>
-    <b>A robust desktop application for real-time monitoring and analysis of vibration data from sensors.</b>
+    <b>[**AQUÍ VA UNA DESCRIPCIÓN CORTA Y ATRACTIVA DE TU PROYECTO. EJ: Una interfaz web para visualizar datos de vibraciones en tiempo real.**]</b>
   </p>
   <br/>
 
   <p>
-    <img src="https://img.shields.io/badge/Java-11+-blue.svg?style=for-the-badge&logo=openjdk" alt="Java">
-    <img src="https://img.shields.io/badge/Maven-3.8-red.svg?style=for-the-badge&logo=apache-maven" alt="Maven">
-    <img src="https://img.shields.io/badge/MySQL-8.0-orange.svg?style=for-the-badge&logo=mysql" alt="MySQL">
-    <img src="https://img.shields.io/badge/status-active-success.svg?style=for-the-badge" alt="Status">
+    <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+    <img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs" alt="Node.js">
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
     <img src="https://img.shields.io/github/license/willor16/vibracionsystem?style=for-the-badge" alt="License">
   </p>
   <br/>
@@ -48,145 +48,130 @@
 
 ## 🚀 About The Project
 
-**VibracionSystem** is a comprehensive Java-based desktop application designed to manage and interpret vibration data collected from multiple sensors. It provides a user-friendly interface for registering users, managing sensor data, and generating detailed PDF reports. This system is ideal for scenarios where continuous monitoring and analysis of mechanical vibrations are crucial for maintenance and operational safety.
+[**Describe tu proyecto con más detalle aquí. Explica el problema que resuelve y el propósito principal. Por ejemplo: VibracionSystem es una aplicación web interactiva que se conecta a sensores (o a una API) para renderizar gráficos dinámicos que ayudan a los ingenieros a monitorear la salud de la maquinaria de forma remota.**]
 
 ---
 
 ## ✨ Key Features
 
-* 👤 **User Authentication:** Secure login and registration system for operators and administrators.
-* 📡 **Sensor Management:** Easily add, view, update, and delete sensor information and their data points.
-* 📊 **Data Analysis:** Process and analyze vibration data to identify patterns, peaks, and potential anomalies.
-* 📄 **PDF Report Generation:** Automatically generate professional, detailed PDF reports of the analysis using the iText library.
-* 💾 **Database Integration:** Persists all user and sensor data in a robust MySQL database for reliability and scalability.
-* 🖥️ **Intuitive GUI:** A clean and straightforward graphical user interface built with Java for ease of use and efficient workflow.
+* **Característica Principal 1:** [**Ej: Visualización de datos en tiempo real con gráficos dinámicos.**]
+* **Característica Principal 2:** [**Ej: Dashboard de usuario para gestionar y seleccionar sensores.**]
+* **Característica Principal 3:** [**Ej: Sistema de alertas por correo electrónico cuando las vibraciones superan un umbral.**]
+* **Característica Principal 4:** [**Ej: Diseño completamente responsivo para acceso desde móvil y escritorio.**]
 
 ---
 
 ## 🛠️ Tech Stack
 
-This project is built with a solid foundation of modern and reliable technologies.
+Este proyecto fue construido con las siguientes tecnologías.
 
-| Category          | Technology / Library                                                                    |
-| ----------------- | --------------------------------------------------------------------------------------- |
-| **Core Language** | ![Java](https://img.shields.io/badge/Java-11+-blue?style=flat-square&logo=openjdk)      |
-| **Database** | ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)      |
-| **Build Tool** | ![Maven](https://img.shields.io/badge/Maven-3.8-red?style=flat-square&logo=apache-maven)  |
-| **Libraries** | `iTextPDF` (for PDF reports), `MySQL Connector/J` (for DB connectivity)                   |
-| **Environment** | Desktop Application (GUI)                                                               |
+| Categoría             | Tecnología / Librería                                                                                                   |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Frontend** | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) <br> ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) <br> ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) |
+| **Framework/Librería JS** | [**Ej: React, Vue, Svelte, o si no usaste ninguno, puedes poner "Vanilla JS"**]                                             |
+| **Backend (si aplica)** | [**Ej: Node.js con Express.js. Si no hay backend, puedes eliminar esta fila.**]                                          |
+| **Base de Datos (si aplica)** | [**Ej: MongoDB, Firebase, PostgreSQL. Si no usas base de datos, elimina esta fila.**]                               |
+| **Herramientas de Desarrollo** | [**Ej: Webpack, Vite, Babel, ESLint**]                                                                             |
 
 ---
 
 ## 📂 Project Structure
 
-Here is a brief overview of the project's directory structure.
+Una vista general de la estructura de carpetas del proyecto. *(Ajusta esto para que coincida con tu proyecto)*.
 
 ```
 vibracionsystem/
+├── public/
+│   ├── index.html       // Archivo HTML principal
+│   └── styles/          // Carpeta de estilos CSS
 ├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/vibracion/vibracionsystem/
-│   │   │       ├── controllers/   // Logic for UI interactions
-│   │   │       ├── models/        // Data objects (User, Sensor)
-│   │   │       ├── services/      // Business logic (DB operations)
-│   │   │       ├── utils/         // Utility classes (DB Connection, Report Generator)
-│   │   │       └── Main.java      // Application entry point
-│   │   └── resources/             // UI files (.fxml), images, etc.
-│   └── test/
-└── pom.xml                        // Maven project configuration
+│   ├── components/      // Componentes reutilizables (si aplica)
+│   ├── assets/          // Imágenes, fuentes, etc.
+│   └── main.js          // Punto de entrada de JavaScript
+├── package.json         // Dependencias y scripts del proyecto
+└── README.md
 ```
 
 ---
 
 ## 🏁 Getting Started
 
-To get a local copy up and running, follow these simple steps.
+Para obtener una copia local y ponerla en marcha, sigue estos sencillos pasos.
 
 ### Prerequisites
 
-Make sure you have the following software installed on your system:
-* **Java Development Kit (JDK) 11** or higher.
-* **Apache Maven**.
-* **MySQL Server** (Community Edition is fine).
-* An IDE of your choice, like **IntelliJ IDEA**, **Eclipse**, or **VS Code**.
+Asegúrate de tener instalado Node.js y npm.
+
+* **Node.js** (puedes descargarlo desde [nodejs.org](https://nodejs.org/))
+* **npm** (viene incluido con Node.js)
 
 ### Installation & Setup
 
-1.  **Clone the repository:**
+1.  **Clona el repositorio:**
     ```sh
     git clone [https://github.com/willor16/vibracionsystem.git](https://github.com/willor16/vibracionsystem.git)
     ```
 
-2.  **Navigate to the project directory:**
+2.  **Navega al directorio del proyecto:**
     ```sh
     cd vibracionsystem
     ```
 
-3.  **Database Setup:**
-    * Start your MySQL server.
-    * Create a new database for the project (e.g., `vibration_db`).
-    * Locate the database connection utility class (e.g., in `src/.../utils/`) and update the `URL`, `username`, and `password` with your local MySQL credentials.
-
-4.  **Build with Maven:**
-    * Open a terminal in the root directory and run:
+3.  **Instala las dependencias de npm:**
     ```sh
-    mvn clean install
+    npm install
     ```
-    * This will download all necessary dependencies.
 
-5.  **Run the Application:**
-    * You can run the `Main.java` class directly from your IDE or execute the generated JAR file from the `target/` directory.
+4.  **Inicia el servidor de desarrollo:**
+    ```sh
+    npm start
+    ```
+    La aplicación debería abrirse en `http://localhost:3000` (o el puerto que hayas configurado).
 
 ---
 
 ## 📖 Usage
 
-Once the application is running:
-1.  Register a new user account or log in with existing credentials.
-2.  Navigate to the sensor management panel to add new sensors.
-3.  View the data associated with each sensor.
-4.  Select a dataset or a time range to perform an analysis.
-5.  Generate a PDF report to save or share the findings.
+[**Proporciona aquí instrucciones sobre cómo usar tu aplicación. Puedes incluir ejemplos de código o gifs animados si lo deseas. Ej: Una vez que la aplicación esté en funcionamiento, puedes agregar un nuevo sensor desde el dashboard y hacer clic en él para ver sus datos en tiempo real.**]
 
 ---
 
 ## 🖼️ Screenshots
 
-Here is a sneak peek into the application's interface.
+Aquí un vistazo de la interfaz de la aplicación.
 
-*(Replace the placeholder URLs below with direct links to your actual screenshots)*
+*(Reemplaza las URLs de abajo con los enlaces a tus capturas de pantalla)*
 
-### **Main Dashboard**
+### **Página de Inicio / Dashboard**
 ![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Main+Dashboard+Screenshot)
 
-### **Sensor Management**
+### **Vista de Gestión de Sensores**
 ![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Sensor+Management+Screenshot)
 
-### **Data Analysis View**
+### **Gráficos de Análisis de Datos**
 ![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Data+Analysis+Screenshot)
 
-### **Generated PDF Report**
-![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=PDF+Report+Screenshot)
+### **Vista Móvil o Característica Especial**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Special+Feature+Screenshot)
 
 ---
 
 ## 🙌 Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Las contribuciones hacen de la comunidad de código abierto un lugar increíble para aprender, inspirar y crear. Cualquier contribución que hagas será **muy apreciada**.
 
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+1.  Haz un Fork del Proyecto.
+2.  Crea tu Rama de Característica (`git checkout -b feature/AmazingFeature`).
+3.  Confirma tus Cambios (`git commit -m 'Add some AmazingFeature'`).
+4.  Empuja a la Rama (`git push origin feature/AmazingFeature`).
+5.  Abre una Pull Request.
 
 ---
 
 ## 📜 License
 
-Distributed under the MIT License. See `LICENSE` file for more information.
-*(Please add a LICENSE file to your repository if you haven't already)*
+Distribuido bajo la Licencia MIT. Consulta el archivo `LICENSE` para más información.
+*(Asegúrate de tener un archivo LICENSE en tu repositorio)*.
 
 ---
 
