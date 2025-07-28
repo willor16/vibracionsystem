@@ -14,7 +14,6 @@
             margin: 0;
             padding: 20px;
         }
-
         /* --- Main Container --- */
         .container {
             max-width: 800px;
@@ -24,7 +23,6 @@
             border-radius: 8px;
             padding: 2rem;
         }
-
         /* --- Header & Badges --- */
         .header {
             text-align: center;
@@ -43,7 +41,6 @@
         .header .badges img {
             margin: 5px;
         }
-
         /* --- Headings --- */
         h2 {
             font-size: 1.75em;
@@ -58,7 +55,6 @@
             margin-top: 1.5em;
             color: #ffffff;
         }
-
         /* --- Links --- */
         a {
             color: #58a6ff;
@@ -67,7 +63,6 @@
         a:hover {
             text-decoration: underline;
         }
-
         /* --- Code Blocks --- */
         pre {
             background-color: #0d1117;
@@ -88,7 +83,6 @@
             font-size: 85%;
             border-radius: 6px;
         }
-
         /* --- Lists --- */
         ul, ol {
             padding-left: 20px;
@@ -96,7 +90,6 @@
         li {
             margin-bottom: 0.5em;
         }
-
         /* --- Tables --- */
         table {
             width: 100%;
@@ -113,8 +106,7 @@
             background-color: #161b22;
             color: #ffffff;
         }
-        
-        /* --- Details/Summary for ToC --- */
+                /* --- Details/Summary for ToC --- */
         details {
             border: 1px solid #30363d;
             border-radius: 6px;
@@ -125,14 +117,12 @@
             cursor: pointer;
             font-weight: bold;
         }
-
         /* --- Images --- */
         img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
         }
-
         /* --- Horizontal Rule --- */
         hr {
             border: 0;
@@ -143,9 +133,7 @@
     </style>
 </head>
 <body>
-
     <div class="container">
-
         <div class="header">
             <p class="emojis">📈 ⚙️ 📊</p>
             <h1>VibracionSystem</h1>
@@ -160,7 +148,6 @@
                 <img src="https://img.shields.io/github/license/willor16/vibracionsystem?style=for-the-badge" alt="License">
             </div>
         </div>
-
         <details>
             <summary><strong>Table of Contents</strong></summary>
             <ol>
@@ -176,12 +163,9 @@
                 <li><a href="#contact">Contact</a></li>
             </ol>
         </details>
-
         <hr>
-
         <h2 id="about">🚀 About The Project</h2>
         <p><strong>VibracionSystem</strong> es una aplicación web dinámica construida con <strong>React</strong> y <strong>Firebase</strong>, diseñada para monitorear y analizar datos de vibraciones de sensores. Proporciona una interfaz de usuario interactiva que permite a los usuarios visualizar datos en tiempo real a través de un dashboard. Este sistema es ideal para escenarios de mantenimiento predictivo y monitoreo industrial donde el acceso remoto e instantáneo a los datos es crucial.</p>
-
         <h2 id="features">✨ Key Features</h2>
         <ul>
             <li>👤 <strong>Autenticación Segura:</strong> Sistema de registro e inicio de sesión de usuarios gestionado con <strong>Firebase Authentication</strong>.</li>
@@ -190,7 +174,6 @@
             <li>☁️ <strong>Base de Datos en la Nube:</strong> Todos los datos se persisten de forma segura y escalable en <strong>Cloud Firestore</strong>.</li>
             <li>📱 <strong>Diseño Responsivo:</strong> Interfaz de usuario moderna construida con React, asegurando una experiencia fluida en computadoras y dispositivos móviles.</li>
         </ul>
-
         <h2 id="tech-stack">🛠️ Tech Stack</h2>
         <table>
             <thead>
@@ -218,7 +201,6 @@
                 </tr>
             </tbody>
         </table>
-
         <h2 id="structure">📂 Project Structure</h2>
         <p>Una vista general de la estructura de carpetas de un proyecto típico con React y Vite. <em>(Ajusta esto si tu estructura es diferente)</em>.</p>
         <pre><code>vibracionsystem/
@@ -234,7 +216,6 @@
 ├── package.json            // Dependencias y scripts del proyecto
 └── vite.config.js          // Configuración de Vite
 </code></pre>
-
         <h2 id="getting-started">🏁 Getting Started</h2>
         <h3>Prerequisites</h3>
         <p>Asegúrate de tener instalado Node.js y npm en tu sistema.</p>
@@ -266,7 +247,6 @@ VITE_FIREBASE_APP_ID="TU_APP_ID"</code></pre>
                 <pre><code>npm run dev</code></pre>
             </li>
         </ol>
-
         <h2 id="usage">📖 Usage</h2>
         <p>Una vez que la aplicación esté en funcionamiento en tu navegador:</p>
         <ol>
@@ -274,22 +254,16 @@ VITE_FIREBASE_APP_ID="TU_APP_ID"</code></pre>
             <li>Serás redirigido al dashboard principal.</li>
             <li>Desde el dashboard, puedes ver los datos de vibración en tiempo real y seleccionar los diferentes sensores disponibles para monitorear.</li>
         </ol>
-
         <h2 id="screenshots">🖼️ Screenshots</h2>
         <p>Aquí un vistazo de la interfaz de la aplicación. <em>(Reemplaza las URLs de abajo con enlaces directos a tus capturas de pantalla)</em></p>
-        
-        <h3>Página de Inicio de Sesión</h3>
+                <h3>Página de Inicio de Sesión</h3>
         <img src="https://via.placeholder.com/800x450.png?text=Login+Screen+Screenshot" alt="Login Screen Screenshot">
-        
-        <h3>Dashboard Principal</h3>
+                <h3>Dashboard Principal</h3>
         <img src="https://via.placeholder.com/800x450.png?text=Main+Dashboard+Screenshot" alt="Main Dashboard Screenshot">
-        
-        <h3>Gráficos de Datos en Tiempo Real</h3>
+                <h3>Gráficos de Datos en Tiempo Real</h3>
         <img src="https://via.placeholder.com/800x450.png?text=Data+Analysis+Screenshot" alt="Data Analysis Screenshot">
-        
-        <h3>Vista en Dispositivos Móviles</h3>
+                <h3>Vista en Dispositivos Móviles</h3>
         <img src="https://via.placeholder.com/800x450.png?text=Mobile+View+Screenshot" alt="Mobile View Screenshot">
-
         <h2 id="contributing">🙌 Contributing</h2>
         <p>Las contribuciones hacen de la comunidad de código abierto un lugar increíble para aprender, inspirar y crear. Cualquier contribución que hagas será <strong>muy apreciada</strong>.</p>
         <ol>
@@ -299,14 +273,11 @@ VITE_FIREBASE_APP_ID="TU_APP_ID"</code></pre>
             <li>Empuja a la Rama (<code>git push origin feature/AmazingFeature</code>).</li>
             <li>Abre una Pull Request.</li>
         </ol>
-
         <h2 id="license">📜 License</h2>
         <p>Distribuido bajo la Licencia MIT. Consulta el archivo <code>LICENSE</code> para más información. <em>(Asegúrate de tener un archivo LICENSE en tu repositorio)</em>.</p>
-
         <h2 id="contact">📞 Contact</h2>
         <p><strong>willor16</strong> - <a href="https://github.com/willor16">GitHub Profile</a></p>
         <p>Link del Proyecto: <a href="https://github.com/willor16/vibracionsystem">https://github.com/willor16/vibracionsystem</a></p>
-
     </div>
 
 </body>
