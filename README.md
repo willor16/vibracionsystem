@@ -12,8 +12,7 @@
             background-color: #0d1117;
             color: #c9d1d9;
             margin: 0;
-            padding: 20px;
-        }
+            padding: 20px;        }
         /* --- Main Container --- */
         .container {
             max-width: 800px;
