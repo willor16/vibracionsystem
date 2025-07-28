@@ -1,18 +1,48 @@
 <div align="center">
+
   <br/>
-  <h1>VibracionSystem 📈</h1>
+  <br/>
+  <p>
+    📈 ⚙️ 📊
+  </p>
+  <h1>VibracionSystem</h1>
+  <p>
+    <b>A robust desktop application for real-time monitoring and analysis of vibration data from sensors.</b>
+  </p>
+  <br/>
+
+  <p>
+    <img src="https://img.shields.io/badge/Java-11+-blue.svg?style=for-the-badge&logo=openjdk" alt="Java">
+    <img src="https://img.shields.io/badge/Maven-3.8-red.svg?style=for-the-badge&logo=apache-maven" alt="Maven">
+    <img src="https://img.shields.io/badge/MySQL-8.0-orange.svg?style=for-the-badge&logo=mysql" alt="MySQL">
+    <img src="https://img.shields.io/badge/status-active-success.svg?style=for-the-badge" alt="Status">
+    <img src="https://img.shields.io/github/license/willor16/vibracionsystem?style=for-the-badge" alt="License">
+  </p>
+  <br/>
   <br/>
 </div>
 
-<p align="center">
-  <strong>A robust desktop application for real-time monitoring and analysis of vibration data from sensors.</strong>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-11-blue?style=for-the-badge&logo=java" alt="Java 11">
-  <img src="https://img.shields.io/badge/Maven-3.8-red?style=for-the-badge&logo=apache-maven" alt="Maven">
-  <img src="https://img.shields.io/badge/MySQL-8.0-orange?style=for-the-badge&logo=mysql" alt="MySQL">
-</p>
+<details>
+  <summary><strong>Table of Contents</strong></summary>
+  <ol>
+    <li><a href="#-about-the-project">About The Project</a></li>
+    <li><a href="#-key-features">Key Features</a></li>
+    <li><a href="#-tech-stack">Tech Stack</a></li>
+    <li><a href="#-project-structure">Project Structure</a></li>
+    <li>
+      <a href="#-getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation--setup">Installation & Setup</a></li>
+      </ul>
+    </li>
+    <li><a href="#-usage">Usage</a></li>
+    <li><a href="#-screenshots">Screenshots</a></li>
+    <li><a href="#-contributing">Contributing</a></li>
+    <li><a href="#-license">License</a></li>
+    <li><a href="#-contact">Contact</a></li>
+  </ol>
+</details>
 
 ---
 
@@ -22,25 +52,50 @@
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-* **User Management:** Secure login and registration system for different user roles.
-* **Sensor Data Management:** Easily add, view, and manage sensor information and their collected data points.
-* **Data Analysis:** Process and analyze vibration data to identify patterns and anomalies.
-* **PDF Report Generation:** Automatically generate professional and detailed reports of the analysis with iTextPDF.
-* **Database Integration:** Persists all user and sensor data in a robust MySQL database.
-* **Intuitive GUI:** Clean and straightforward graphical user interface built for ease of use.
+* 👤 **User Authentication:** Secure login and registration system for operators and administrators.
+* 📡 **Sensor Management:** Easily add, view, update, and delete sensor information and their data points.
+* 📊 **Data Analysis:** Process and analyze vibration data to identify patterns, peaks, and potential anomalies.
+* 📄 **PDF Report Generation:** Automatically generate professional, detailed PDF reports of the analysis using the iText library.
+* 💾 **Database Integration:** Persists all user and sensor data in a robust MySQL database for reliability and scalability.
+* 🖥️ **Intuitive GUI:** A clean and straightforward graphical user interface built with Java for ease of use and efficient workflow.
 
 ---
 
-## 🛠️ Built With
+## 🛠️ Tech Stack
 
-This project is built with a solid foundation of modern and reliable technologies:
+This project is built with a solid foundation of modern and reliable technologies.
 
-* **[Java](https://www.java.com/)**: The core programming language.
-* **[Maven](https://maven.apache.org/)**: Dependency management and project build tool.
-* **[MySQL](https://www.mysql.com/)**: Relational database for data storage.
-* **[iTextPDF](https://itextpdf.com/)**: Library for creating and manipulating PDF documents.
+| Category          | Technology / Library                                                                    |
+| ----------------- | --------------------------------------------------------------------------------------- |
+| **Core Language** | ![Java](https://img.shields.io/badge/Java-11+-blue?style=flat-square&logo=openjdk)      |
+| **Database** | ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)      |
+| **Build Tool** | ![Maven](https://img.shields.io/badge/Maven-3.8-red?style=flat-square&logo=apache-maven)  |
+| **Libraries** | `iTextPDF` (for PDF reports), `MySQL Connector/J` (for DB connectivity)                   |
+| **Environment** | Desktop Application (GUI)                                                               |
+
+---
+
+## 📂 Project Structure
+
+Here is a brief overview of the project's directory structure.
+
+```
+vibracionsystem/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/vibracion/vibracionsystem/
+│   │   │       ├── controllers/   // Logic for UI interactions
+│   │   │       ├── models/        // Data objects (User, Sensor)
+│   │   │       ├── services/      // Business logic (DB operations)
+│   │   │       ├── utils/         // Utility classes (DB Connection, Report Generator)
+│   │   │       └── Main.java      // Application entry point
+│   │   └── resources/             // UI files (.fxml), images, etc.
+│   └── test/
+└── pom.xml                        // Maven project configuration
+```
 
 ---
 
@@ -51,33 +106,48 @@ To get a local copy up and running, follow these simple steps.
 ### Prerequisites
 
 Make sure you have the following software installed on your system:
-
 * **Java Development Kit (JDK) 11** or higher.
 * **Apache Maven**.
-* **MySQL Server**.
-* An IDE of your choice, like **IntelliJ IDEA** or **Eclipse**.
+* **MySQL Server** (Community Edition is fine).
+* An IDE of your choice, like **IntelliJ IDEA**, **Eclipse**, or **VS Code**.
 
-### Installation
+### Installation & Setup
 
 1.  **Clone the repository:**
     ```sh
     git clone [https://github.com/willor16/vibracionsystem.git](https://github.com/willor16/vibracionsystem.git)
     ```
+
 2.  **Navigate to the project directory:**
     ```sh
     cd vibracionsystem
     ```
-3.  **Database Setup:**
-    * Create a new database in MySQL for the project.
-    * Import the database schema if provided, or configure the application to create tables automatically.
-    * Update the database connection details in the source code (e.g., in a `config.properties` or a connection manager class).
 
-4.  **Build the project with Maven:**
+3.  **Database Setup:**
+    * Start your MySQL server.
+    * Create a new database for the project (e.g., `vibration_db`).
+    * Locate the database connection utility class (e.g., in `src/.../utils/`) and update the `URL`, `username`, and `password` with your local MySQL credentials.
+
+4.  **Build with Maven:**
+    * Open a terminal in the root directory and run:
     ```sh
     mvn clean install
     ```
-5.  **Run the application:**
-    * You can run the main class directly from your IDE or use the generated JAR file.
+    * This will download all necessary dependencies.
+
+5.  **Run the Application:**
+    * You can run the `Main.java` class directly from your IDE or execute the generated JAR file from the `target/` directory.
+
+---
+
+## 📖 Usage
+
+Once the application is running:
+1.  Register a new user account or log in with existing credentials.
+2.  Navigate to the sensor management panel to add new sensors.
+3.  View the data associated with each sensor.
+4.  Select a dataset or a time range to perform an analysis.
+5.  Generate a PDF report to save or share the findings.
 
 ---
 
@@ -85,13 +155,43 @@ Make sure you have the following software installed on your system:
 
 Here is a sneak peek into the application's interface.
 
-*(Replace the placeholder links below with direct links to your actual screenshots)*
+*(Replace the placeholder URLs below with direct links to your actual screenshots)*
 
-|                                       |                                       |
-| :-----------------------------------: | :-----------------------------------: |
-| *Login Screen / Main Dashboard* | *Sensor Management Interface* |
-| ![Screenshot 1](URL_A_TU_CAPTURA_1.png) | ![Screenshot 2](URL_A_TU_CAPTURA_2.png) |
-| *Data Analysis View* | *Sample PDF Report* |
-| ![Screenshot 3](URL_A_TU_CAPTURA_3.png) | ![Screenshot 4](URL_A_TU_CAPTURA_4.png) |
+### **Main Dashboard**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Main+Dashboard+Screenshot)
+
+### **Sensor Management**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Sensor+Management+Screenshot)
+
+### **Data Analysis View**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Data+Analysis+Screenshot)
+
+### **Generated PDF Report**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=PDF+Report+Screenshot)
 
 ---
+
+## 🙌 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` file for more information.
+*(Please add a LICENSE file to your repository if you haven't already)*
+
+---
+
+## 📞 Contact
+
+**willor16** - [GitHub Profile](https://github.com/willor16)
+
+Project Link: [https://github.com/willor16/vibracionsystem](https://github.com/willor16/vibracionsystem)
