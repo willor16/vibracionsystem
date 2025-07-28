@@ -1,98 +1,197 @@
-# 🔧 Vibration System Web App
+<div align="center">
 
-**Vibration System** is a dynamic front-end web application designed to visualize and analyze vibration phenomena in mechanical systems. It uses **HTML, CSS, JavaScript**, and integrates with **Firebase** for real‑time data handling.
+  <br/>
+  <br/>
+  <p>
+    📈 ⚙️ 📊
+  </p>
+  <h1>VibracionSystem</h1>
+  <p>
+    <b>A robust desktop application for real-time monitoring and analysis of vibration data from sensors.</b>
+  </p>
+  <br/>
+
+  <p>
+    <img src="https://img.shields.io/badge/Java-11+-blue.svg?style=for-the-badge&logo=openjdk" alt="Java">
+    <img src="https://img.shields.io/badge/Maven-3.8-red.svg?style=for-the-badge&logo=apache-maven" alt="Maven">
+    <img src="https://img.shields.io/badge/MySQL-8.0-orange.svg?style=for-the-badge&logo=mysql" alt="MySQL">
+    <img src="https://img.shields.io/badge/status-active-success.svg?style=for-the-badge" alt="Status">
+    <img src="https://img.shields.io/github/license/willor16/vibracionsystem?style=for-the-badge" alt="License">
+  </p>
+  <br/>
+  <br/>
+</div>
+
+<details>
+  <summary><strong>Table of Contents</strong></summary>
+  <ol>
+    <li><a href="#-about-the-project">About The Project</a></li>
+    <li><a href="#-key-features">Key Features</a></li>
+    <li><a href="#-tech-stack">Tech Stack</a></li>
+    <li><a href="#-project-structure">Project Structure</a></li>
+    <li>
+      <a href="#-getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation--setup">Installation & Setup</a></li>
+      </ul>
+    </li>
+    <li><a href="#-usage">Usage</a></li>
+    <li><a href="#-screenshots">Screenshots</a></li>
+    <li><a href="#-contributing">Contributing</a></li>
+    <li><a href="#-license">License</a></li>
+    <li><a href="#-contact">Contact</a></li>
+  </ol>
+</details>
 
 ---
 
-## 🧩 Key Features
+## 🚀 About The Project
 
-- 🎛️ **Real-time parameter control** – Adjust vibration properties via UI sliders and inputs.
-- ☁️ **Firebase integration** – Store and retrieve data using Firestore.
-- 📱 **Responsive design** – Optimized for desktop, tablet, and mobile.
-- 📊 **Visual feedback** – UI responds instantly to user input.
+**VibracionSystem** is a comprehensive Java-based desktop application designed to manage and interpret vibration data collected from multiple sensors. It provides a user-friendly interface for registering users, managing sensor data, and generating detailed PDF reports. This system is ideal for scenarios where continuous monitoring and analysis of mechanical vibrations are crucial for maintenance and operational safety.
 
 ---
 
-## 🚀 Quick Start
+## ✨ Key Features
 
-```bash
-git clone https://github.com/willor16/vibracionsystem.git
-cd vibracionsystem
-Open index.html in your browser.
+* 👤 **User Authentication:** Secure login and registration system for operators and administrators.
+* 📡 **Sensor Management:** Easily add, view, update, and delete sensor information and their data points.
+* 📊 **Data Analysis:** Process and analyze vibration data to identify patterns, peaks, and potential anomalies.
+* 📄 **PDF Report Generation:** Automatically generate professional, detailed PDF reports of the analysis using the iText library.
+* 💾 **Database Integration:** Persists all user and sensor data in a robust MySQL database for reliability and scalability.
+* 🖥️ **Intuitive GUI:** A clean and straightforward graphical user interface built with Java for ease of use and efficient workflow.
 
-Set up Firebase and Firestore using your own project credentials.
+---
 
-Enjoy interactive vibration system simulation!
+## 🛠️ Tech Stack
 
-🗂️ File Structure
-bash
-Copiar
-Editar
+This project is built with a solid foundation of modern and reliable technologies.
+
+| Category          | Technology / Library                                                                    |
+| ----------------- | --------------------------------------------------------------------------------------- |
+| **Core Language** | ![Java](https://img.shields.io/badge/Java-11+-blue?style=flat-square&logo=openjdk)      |
+| **Database** | ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql)      |
+| **Build Tool** | ![Maven](https://img.shields.io/badge/Maven-3.8-red?style=flat-square&logo=apache-maven)  |
+| **Libraries** | `iTextPDF` (for PDF reports), `MySQL Connector/J` (for DB connectivity)                   |
+| **Environment** | Desktop Application (GUI)                                                               |
+
+---
+
+## 📂 Project Structure
+
+Here is a brief overview of the project's directory structure.
+
+```
 vibracionsystem/
-├── index.html             # Main interface
-├── style.css              # Styling and layout
-├── script.js              # JavaScript logic + Firebase integration
-├── firebase.json          # Firebase hosting configuration
-├── firestore.rules        # Firestore security rules
-└── firestore.indexes.json # Optional Firestore indexes
-🧠 Technical Overview
-Component	Description
-index.html	Main UI layout and vibration controls
-style.css	Visual design, responsiveness
-script.js	Firebase integration and logic
-firebase.json	Hosting and project config
-firestore.rules	Database rules for security
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/vibracion/vibracionsystem/
+│   │   │       ├── controllers/   // Logic for UI interactions
+│   │   │       ├── models/        // Data objects (User, Sensor)
+│   │   │       ├── services/      // Business logic (DB operations)
+│   │   │       ├── utils/         // Utility classes (DB Connection, Report Generator)
+│   │   │       └── Main.java      // Application entry point
+│   │   └── resources/             // UI files (.fxml), images, etc.
+│   └── test/
+└── pom.xml                        // Maven project configuration
+```
 
-⚙️ Usage & Controls
-Modify mass, stiffness, damping, or frequency.
+---
 
-Changes are synced in real time via Firebase.
+## 🏁 Getting Started
 
-Interface updates instantly to reflect changes.
+To get a local copy up and running, follow these simple steps.
 
-🛡️ Security
-Firestore rules included to restrict unauthorized access.
+### Prerequisites
 
-You can customize firestore.rules to fit your needs.
+Make sure you have the following software installed on your system:
+* **Java Development Kit (JDK) 11** or higher.
+* **Apache Maven**.
+* **MySQL Server** (Community Edition is fine).
+* An IDE of your choice, like **IntelliJ IDEA**, **Eclipse**, or **VS Code**.
 
-✅ Why Use This?
-Ideal for engineering students, educators, and developers.
+### Installation & Setup
 
-Provides instant feedback on physical parameter tuning.
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/willor16/vibracionsystem.git](https://github.com/willor16/vibracionsystem.git)
+    ```
 
-Built with modularity and extensibility in mind.
+2.  **Navigate to the project directory:**
+    ```sh
+    cd vibracionsystem
+    ```
 
-📄 License
-This project is licensed under the MIT License.
-Feel free to fork, use, and modify with proper attribution.
+3.  **Database Setup:**
+    * Start your MySQL server.
+    * Create a new database for the project (e.g., `vibration_db`).
+    * Locate the database connection utility class (e.g., in `src/.../utils/`) and update the `URL`, `username`, and `password` with your local MySQL credentials.
 
-📸 Screenshots
-Add your screenshots here (replace with real image paths or URLs):
+4.  **Build with Maven:**
+    * Open a terminal in the root directory and run:
+    ```sh
+    mvn clean install
+    ```
+    * This will download all necessary dependencies.
 
-Screenshot 1	Screenshot 2
+5.  **Run the Application:**
+    * You can run the `Main.java` class directly from your IDE or execute the generated JAR file from the `target/` directory.
 
-Screenshot 3	Screenshot 4
+---
 
-📚 References
-🔗 Vibration System GitHub Repository
+## 📖 Usage
 
-🏁 Next Steps
-🔒 Add Firebase Authentication for multi-user access
+Once the application is running:
+1.  Register a new user account or log in with existing credentials.
+2.  Navigate to the sensor management panel to add new sensors.
+3.  View the data associated with each sensor.
+4.  Select a dataset or a time range to perform an analysis.
+5.  Generate a PDF report to save or share the findings.
 
-📈 Integrate data charts (e.g., Chart.js, D3.js)
+---
 
-🌐 Support multiple languages
+## 🖼️ Screenshots
 
-🧪 Write tests and CI/CD pipeline
+Here is a sneak peek into the application's interface.
 
-markdown
-Copiar
-Editar
+*(Replace the placeholder URLs below with direct links to your actual screenshots)*
 
-### ✅ Instrucciones finales:
+### **Main Dashboard**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Main+Dashboard+Screenshot)
 
-- **Pega este texto directamente en tu archivo `README.md`.**
-- Reemplaza `path/to/screenshotX.png` por la ruta o URL real de tus capturas.
-- Puedes previsualizar cómo se verá en GitHub una vez hagas push o lo edites desde el navegador.
+### **Sensor Management**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Sensor+Management+Screenshot)
 
-¿Quieres que lo guarde como archivo y te lo envíe? También puedo generarte el archivo `.md`.
+### **Data Analysis View**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=Data+Analysis+Screenshot)
+
+### **Generated PDF Report**
+![Your Screenshot Here](https://via.placeholder.com/800x450.png?text=PDF+Report+Screenshot)
+
+---
+
+## 🙌 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` file for more information.
+*(Please add a LICENSE file to your repository if you haven't already)*
+
+---
+
+## 📞 Contact
+
+**willor16** - [GitHub Profile](https://github.com/willor16)
+
+Project Link: [https://github.com/willor16/vibracionsystem](https://github.com/willor16/vibracionsystem)
