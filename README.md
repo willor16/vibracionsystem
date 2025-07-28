@@ -18,7 +18,6 @@
     <img src="https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge&logo=javascript" alt="JavaScript">
     <img src="https://img.shields.io/badge/Firebase-9.0+-orange?style=for-the-badge&logo=firebase" alt="Firebase">
     <img src="https://img.shields.io/badge/status-deployed-success?style=for-the-badge" alt="Status">
-    <img src="https://img.shields.io/github/license/willor16/vibracionsystem?style=for-the-badge" alt="License">
   </p>
   <br/>
   <br/>
