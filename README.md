@@ -1,6 +1,3 @@
-<p>
-    <b>This project uses web development technology and electronics technology to offer a functional and aesthetic vibration analyzer. Using technology such as js, c++, on the hardware side sensors, esp32 etc.</b>
-  </p>
 <img src="/vibraciones-image.png" alt="project-screenshot" width="center" height="center/">
 <div align="center">
 
