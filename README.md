@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VibracionSystem README</title>
     <style>
-        /* --- General Styles & Dark Theme --- */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
             line-height: 1.6;
@@ -14,7 +13,6 @@
             margin: 0;
             padding: 20px;
         }
-        /* --- Main Container --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -23,7 +21,6 @@
             border-radius: 8px;
             padding: 2rem;
         }
-        /* --- Header & Badges --- */
         .header {
             text-align: center;
             border-bottom: 1px solid #30363d;
@@ -41,7 +38,6 @@
         .header .badges img {
             margin: 5px;
         }
-        /* --- Headings --- */
         h2 {
             font-size: 1.75em;
             border-bottom: 1px solid #30363d;
@@ -55,7 +51,6 @@
             margin-top: 1.5em;
             color: #ffffff;
         }
-        /* --- Links --- */
         a {
             color: #58a6ff;
             text-decoration: none;
@@ -63,7 +58,6 @@
         a:hover {
             text-decoration: underline;
         }
-        /* --- Code Blocks --- */
         pre {
             background-color: #0d1117;
             padding: 1em;
@@ -75,7 +69,6 @@
             font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
             font-size: 0.9em;
         }
-        /* Inline code */
         p code, li code {
             background-color: rgba(110,118,129,0.4);
             padding: .2em .4em;
@@ -83,14 +76,12 @@
             font-size: 85%;
             border-radius: 6px;
         }
-        /* --- Lists --- */
         ul, ol {
             padding-left: 20px;
         }
         li {
             margin-bottom: 0.5em;
         }
-        /* --- Tables --- */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -105,8 +96,7 @@
         th {
             background-color: #161b22;
             color: #ffffff;
-        }        
-        /* --- Details/Summary for ToC --- */
+        }      
         details {
             border: 1px solid #30363d;
             border-radius: 6px;
@@ -117,13 +107,11 @@
             cursor: pointer;
             font-weight: bold;
         }
-        /* --- Images --- */
         img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
         }
-        /* --- Horizontal Rule --- */
         hr {
             border: 0;
             height: 1px;
@@ -185,7 +173,7 @@
             <tbody>
                 <tr>
                     <td><strong>Frontend</strong></td>
-                    <td><img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript"></td>
+                    <td><img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">                    </td>
                 </tr>
                 <tr>
                     <td><strong>Backend (BaaS)</strong></td>
