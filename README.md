@@ -1,4 +1,4 @@
-<img src="vibracionsystem/vibraciones-image.png" alt="project-screenshot" width="center" height="center/">
+<img src="/vibraciones-image.png" alt="project-screenshot" width="center" height="center/">
 <div align="center">
 
   <br/>
